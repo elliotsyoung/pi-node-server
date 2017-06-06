@@ -1,0 +1,80 @@
+<div ng-class="user" class="userarea">
+
+	<div id="greenwrapper">
+
+		<div ng-include="'partials/header.html'"></div>
+
+		<section class="ui very padded basic segment offer form">
+
+			<h2>Your Offers</h2>
+			<p>Proposals you've submitted offers for.</p>
+
+			<div class="ui horizontal divider"></div>
+			<div class="ui horizontal divider"></div>
+
+			<div class="ui left details"  style="margin-bottom: 50px;">
+
+				<div class="ui segment">
+					<div class="ui right aligned grid filters-top">
+
+						<div class="left aligned eight wide column">
+							<p class="count">{{proposals.length}} {{proposal.length == 1 ? 'Result':'Results'}}</p>
+						</div> <!-- left column -->
+						<div class="eight wide column">
+							<!-- <p class="toplabels">Order By:
+								<a href="" title="Date" class="selected-link">Date</a> &bull; <a href="" title="Rating">Rating</a> &bull; <a href="" title="Relevance">Relevance</a>
+							</p> -->
+						</div> <!-- .right column -->
+					</div>
+				</div>
+			</div>
+
+			<div class="ui stackable four column grid middle item-cards">
+
+				<div ng-repeat="proposal in proposals" class="column">
+					<div class="ui padded segment center aligned">
+						<h4 style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{proposal.product}}</h4>
+						<br>
+						<div class="ui tiny image">
+							<img src="static/img/makerdefaultprofilepic.png" class="ui centered image" />
+						</div>
+						<a style="width: 100%;" ng-class="color" class="ui evergreen uppercase button" href="#!/show-offer/{{proposal.id}}/{{id}}">View Your Offer</a>
+						<br>
+						<br>
+						<!-- <a style="width: 100%;" class="ui evergreen uppercase button orange" href="#!/show-proposal/{{proposal.id}}">View Proposal</a> -->
+						<a ng-click="getProposal(proposal.id)" style="width: 100%;" class="ui evergreen uppercase button orange" href="">View Proposal</a>
+						<small ng-show="proposal.status<2"><a href="" class="delete-anchor" ng-click="set(proposal)">Remove offer</a></small>
+						<small ng-show="proposal.status>=2">In progress</small>
+					</div> <!-- segment -->
+
+					<script type="text/javascript">
+						$(".delete-anchor").click(function() {
+							$("#delete-modal").modal("show");
+						});
+					</script>
+
+					<div class="ui right aligned grid">
+
+						<div class="sixteen wide column">
+							<p class="toplabels">You Responded On:</p>
+							<p>{{proposal.created_at | date:"MMM dd y"}}</p>
+						</div> <!-- .right column -->
+					</div>
+
+				</div>
+				<!-- End Supplier Zone -->
+			</div> <!-- .ui left continer -->
+		</section> <!-- .very padded segment -->
+		<div ng-include="'partials/footer.html'"></div>
+	</div> <!-- #greenwrapper -->
+</div>
+
+<!-- Modal -->
+<div class="ui small coupled modal sixteen centered grid" id="delete-modal">
+	<div class="header">Are you sure you want to remove your offer?</div>
+	<div class="content">
+		<p>You can remove this offer while it hasn't been accepted yet. Click 'Confirm' to continue removing your offer.</p>	</div>
+	<div class="actions">
+		<button class="ui approve button" ng-click="delete()">Confirm</button><button class="ui cancel button">Cancel</button>
+	</div>
+</div>

@@ -1,0 +1,258 @@
+<div class="details light">
+
+	<div id="greenwrapper">
+
+		<div ng-include="'partials/header.html'"></div>
+
+		<div class="ui container">
+			<h2 style="margin: 0px; padding: 0px;">Viewing Proposal For:</h2>
+			<h2 style="margin-top: 0px;"><strong>{{proposal.quantity | number}} {{proposal.product}} by {{proposal.completion | date:"mediumDate"}}</strong></h2>
+
+			<div class="ui centered relaxed grid">
+				<div class="sixteen wide tablet four wide computer column">
+					<div class="box">
+						<h2>Attached Documents</h2>
+						<span ng-if="signed" style="color: red; font-size: 14px;" data-tooltip="Refreshing the page will give you new links to the protected documents" data-position="right center">
+										file links not working? <i class="help circle outline icon"></i>
+									</span> <br>
+						<span ng-if="!signed">Attached documents are not viewable until the NDA is signed.</span>
+						<div ng-repeat="file in files" class="slided-item">
+							<div class="ui cards">
+								<div class="card">
+									<div class="content">
+										<p style="word-wrap: break-word;">{{file.filename.substring(file.filename.lastIndexOf('testfolder/')+11,file.filename.lastIndexOf('?'))}}</p>
+									</div>
+									<a href="{{returnTrustedURL(file)}}" target="_blank"><div class="ui bottom attached evergreen green button" style="width:100%;">
+										View Document
+									</div></a>
+								</div>
+							</div>
+						</div>
+
+						<div class="slided-item" ng-if="signed">
+							<div class="ui cards">
+								<div class="card">
+									<div class="content">
+										<p style="word-wrap: break-word;">Non-disclosure Agreement</p>
+									</div>
+									<a href="{{ndasource?ndasource:'https://s3-us-west-1.amazonaws.com/ronintestbucket/public_assets/170128_Mutual_NDA.pdf'}}" target="_blank"><div class="ui bottom attached evergreen green button" style="width:100%;">
+										View NDA
+									</div></a>
+								</div>
+							</div>
+						</div>
+				</div>
+
+						<!-- .beacuse slick was breaking my css I had to put each .card in .cards -->
+					<!-- <div class="box">
+						<h3>Image Gallery</h3>
+
+						<div class="ui three doubling cards">
+							<div class="card">
+								<div class="image">
+									<img src="http://placehold.it/100x100/eeeeee/333333">
+								</div>
+							</div>
+							<div class="card">
+								<div class="image">
+									<img src="http://placehold.it/100x100/eeeeee/333333">
+								</div>
+							</div>
+							<div class="card">
+								<div class="image">
+									<img src="http://placehold.it/100x100/eeeeee/333333">
+								</div>
+							</div>
+							<div class="card">
+								<div class="image">
+									<img src="http://placehold.it/100x100/eeeeee/333333">
+								</div>
+							</div>
+							<div class="card">
+								<div class="image">
+									<img src="http://placehold.it/100x100/eeeeee/333333">
+								</div>
+							</div>
+							<div class="card">
+								<div class="image">
+									<img src="http://placehold.it/100x100/eeeeee/333333">
+								</div>
+							</div>
+						</div>
+
+					</div> -->
+					 <!-- .box -->
+
+				</div> <!-- .column -->
+				<div class="sixteen wide tablet eight wide computer column container divided">
+
+					<!-- <h3>Here’s what we’re trying to produce</h3> -->
+
+					<div class="content box" ng-show="signed">
+						<h4>Product Name</h4>
+						<p ng-bind="files[0].product"></p>
+					</div>
+
+					<div class="content box" ng-show="signed">
+						<h4>Quantity Needed</h4>
+						<p ng-bind="files[0].quantity | number"></p>
+					</div>
+
+
+					<div class="ui basic segment center aligned nda-box" ng-show="!signed">
+						<h6>View full details</h6>
+						<p>Please read and accept the Non-Disclosure Agreement before moving forward with this offer</p>
+
+						<a onclick="$('#ndaWindow').modal('show');" class="ui fluid grey big uppercase basic button nda-trigger">Read the NDA</a>
+
+					</div>
+
+					<div ng-show="signed">
+						<div class="content box">
+							<h4>And they need them by:</h4>
+							<p ng-bind="files[0].completion | date:'fullDate'"></p>
+							<!-- <img src="static/img/test-image.png" width="260" class="ui image" /> -->
+
+						</div>
+					</div>
+
+					<div ng-show="signed">
+						<div class="content box">
+							<h4>Additional Information:</h4>
+							<p ng-bind-html="files[0].info"></p>
+							<!-- <img src="static/img/test-image.png" width="260" class="ui image" /> -->
+					</div>
+
+					<a class="ui bottom attached evergreen orange button" ng-click="goBack()" style="margin: 5px 10px" href="" target="_blank">
+						Go Back
+					</a>
+				</div>
+				</div> <!-- .column -->
+				<div class="sixteen wide tablet four wide computer column">
+
+					<div ng-if="type==1" class="ui segment buybox">
+						<!-- <h3>{{company}}</h3> -->
+						<!-- <p style="text-decoration: line-through;">610 Overlook Circle Suite 323 Kalamazoo, MI 49009</p> -->
+
+						<div class="ui horizontal slider"></div>
+
+						<button class="ui fluid evergreen orange button" data-tooltip="Click here to proceed to making your offer" data-position="bottom center" ng-click="send()" ng-disabled="type==0 || (offer && offer.status>0)">{{offer && offer.status>0?'OFFER SENT':'MAKE AN OFFER'}}</button>
+						<a ng-if="offer && offer.status > 0" class="ui fluid evergreen orange button" href="#!/show-offer/{{files[0].id}}/{{id}}" >View your offer</a>
+
+					</div> <!-- .segment -->
+
+					<div ng-if="type==1" class="ui basic segment center aligned">
+						<small class="footnote">Evergeen charges 2% of the total cost as a service fee. <a href="" title="More about this">Find out more</a>.</small>
+					</div>
+				</div> <!-- .column -->
+
+			</div> <!-- .grid - the big grid, the grid from the top, the grid from above, amin! -->
+
+		</div> <!-- .container -->
+
+		<div ng-include="'partials/footer.html'"></div>
+
+	</div> <!-- #greenwrapper -->
+
+
+	<!-- the NDA modal -->
+	<div class="ui small modal ndaWindow" id="ndaWindow">
+		<i class="close icon"></i>
+		<div class="header">
+			Non-disclosure Agreement
+		</div>
+
+		<!-- modal content -->
+		<div class="ui padded basic segment">
+			<div class="ui grid">
+				<!-- <div class="sixteen wide tablet three wide computer column"> -->
+					<!-- thumbnail will go here -->
+					<!-- here I'm calling the tabs triggers for the left part. For each thumbnail item we will add a tab menu as listed below -->
+
+					<!-- <div class="thumbnails">
+						<a class="active item" data-tab="first">
+							<img src="http://placehold.it/105x140/eeeeee/333333">
+						</a>
+						<a class="item" data-tab="second">
+							<img src="http://placehold.it/105x140/eeeeee/333333">
+						</a>
+						<a class="item" data-tab="third">
+							<img src="http://placehold.it/105x140/eeeeee/333333">
+						</a>
+					</div> -->
+
+				<!-- </div> -->
+				<div class="sixteen wide tablet sixteen wide computer column">
+					<!-- preview will go here -->
+					<iframe ng-src="{{ndasource}}" width="100%" height="600"></iframe>
+					<div class="ui tab active" data-tab="first">
+						<div class="paper">
+							<!-- <img src="static/img/paper.jpg" width="495" class="ui centered image" /> -->
+						</div> <!-- .paper -->
+					</div>
+					<div class="ui tab" data-tab="second">
+						<div class="paper">
+							<img src="static/img/paper.jpg" width="495" class="ui centered image" />
+						</div> <!-- .paper -->
+					</div>
+					<div class="ui tab" data-tab="third">
+						<div class="paper">
+							<img src="static/img/paper.jpg" width="495" class="ui centered image" />
+						</div> <!-- .paper -->
+					</div>
+
+				</div>
+			</div> <!-- .grid -->
+		</div>
+		<div class="actions">
+
+			<div class="ui equal width grid">
+				<div class="equal width row">
+					<div class="column">
+						<a href="" class="ui fluid grey big uppercase basic button nda-confirmation">I do not agree</a>
+					</div>
+					<div class="column">
+						<a class="ui fluid evegreen uppercase big green button nda-trigger" ng-click="create()" onclick="$('.ndaWindow').modal('hide');">I agree</a>
+					</div>
+				</div> <!-- .row -->
+			</div> <!-- .grid -->
+
+			<small class="footnote">By agreeing to this NDA you enable that the Maker can contact you through our website. No personal data will be made public to the maker.</small>
+
+		</div> <!-- .actions -->
+	</div> <!-- modal -->
+
+
+	<!-- the "are you sure" modal -->
+	<div class="ui tiny modal" id="areYouSure">
+		<i class="close icon"></i>
+		<div class="header">
+			Are you sure?
+		</div>
+
+		<!-- modal content -->
+		<div class="ui padded basic segment">
+			<p>If you don’t agree with this NDA you will not be able to continue to this company’s offers.
+				If you are sure you want to skip this deal click “I am sure”. Otherwise, go back and click “I agree”.</p>
+			</div>
+			<div class="actions">
+
+				<a href="" class="ui fluid evegreen uppercase big green button nda-trigger" onclick="$('#ndaWindow').modal('show');">Go back</a>
+
+				<a href="" class="ui fluid grey big uppercase basic button close" onclick="$('#areYouSure').modal('hide');">I am sure</a>
+
+			</div> <!-- .grid -->
+
+		</div> <!-- .actions -->
+	</div> <!-- modal -->
+
+	<script src="static/js/slick.min.js"></script>
+	<script src="static/js/green.js"></script>
+
+<!--    <script type="text/javascript">
+$('.single-slide').slick({
+dots: true
+});
+
+</script> -->
+</div>

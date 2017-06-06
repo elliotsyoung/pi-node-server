@@ -1,0 +1,346 @@
+<div class="add-request light">
+
+	<div id="greenwrapper">
+
+		<div ng-include="'partials/header.html'"></div>
+
+		<div class="ui container">
+
+			<h2>Create a new proposal</h2>
+
+			<div class="steps-nav steps">
+				<div class="ui pointing secondary menu">
+					<a ng-click="step = 1" class="item trigger" ng-class="{active: step==1}">
+						<span class="ui circular label">1</span>
+						Proposal
+					</a>
+					<a ng-click="step = 2" class="item trigger" ng-class="{active: step==2}">
+						<span class="ui circular label">2</span>
+						Delivery
+					</a>
+					<a ng-click="step = 3" class="item trigger" ng-class="{active: step==3}">
+						<span class="ui circular label">3</span>
+						Finalize Proposal
+					</a>
+				</div>
+
+				<!-- we start the Proposal tab here -->
+
+				<div class="ui basic segment" ng-class="{active: step==1}" ng-show="step==1">
+
+					<!-- We start the form here -->
+
+					<form class="ui big form" ng-submit="step=2">
+
+						<!-- these headers / labels include a tooltip, add the tooltip text in the data-tooltip tag -->
+						<h4 class="label-title">
+							<span class="tooltip" data-tooltip="These are some of the processes you will need to produce your part. Select as many as needed" data-position="right center" data-variation="basic">
+								Select Categories
+								<i class="help circle outline icon"></i>
+							</span>
+						</h4>
+
+
+						<select class="categoryselector ui dropdown" name="multipleSelect" ng-model="proposal.processes" multiple required>
+							<option value="Automation">Automation</option>
+							<option value="Batch & Fill">Batch &amp; Fill</option>
+							<option value="Blow Molding">Blow Molding</option>
+							<option value="CNC">CNC</option>
+							<option value="Cut & Sew">Cut &amp; Sew</option>
+							<option value="Die Casting">Die Casting</option>
+							<option value="Die Cutting">Die Cutting</option>
+							<option value="Fiber Molding">Fiber Molding</option>
+							<option value="Injection Molding">Injection Molding</option>
+							<option value="Laser Welding">Laser Welding</option>
+							<option value="Packaging">Packaging</option>
+							<option value="Printing">Printing</option>
+							<option value="Screen Printing">Screen Printing</option>
+							<option value="Thermaforming">Thermaforming</option>
+							<option value="Other">Other</option>
+						</select>
+
+<div class="ui horizontal divider"></div>
+
+<div class="ui big offer form">
+
+	<div class="field">
+		<label>
+			<span data-tooltip="This is what suppliers will see when browsing RFPs" data-position="right center">
+				<strong>What do you need produced?</strong> <i class="help circle outline icon"></i>
+			</span>
+		</label>
+		<input placeholder="e.g. {{company}}'s product" type="text" ng-model="proposal.product" required>
+	</div> <!-- .field -->
+
+	<div class="field">
+		<label>
+			<span data-tooltip="Add the quantity of items you’re trying to produce" data-position="right center">
+				<strong>How many units do you need?</strong> <i class="help circle outline icon"></i>
+			</span>
+		</label>
+		<input type="number" min="1" step="1" placeholder="e.g. 10000" ng-model="proposal.quantity" required>
+	</div> <!-- .field -->
+
+	<div class="field">
+		<label>
+			<span data-tooltip="When do you need all of these items shipped to your location?" data-position="right center">
+				<strong>When do you need them?</strong> <i class="help circle outline icon"></i>
+			</span>
+		</label>
+		<div class="ui left icon input">
+			<input id="completion" type="text" min="{{today|date:'yyyy-MM-dd'}}" required>
+			<i class="calendar outline icon"></i>
+		</div> <!-- input -->
+	</div> <!-- .field -->
+
+	<input ng-click="logVariables()" type="submit" class="ui big evergreen uppercase orange button" value="Continue">
+</div> <!-- .big form -->
+
+<div class="ui horizontal divider"></div>
+
+<div class="small links">
+	<!-- <a href="" title="Save for later"><i class="save icon"></i> Save for later</a> -->
+	<div class="ui divider"></div>
+	<a href="#!/dashboard" title="Skip">Skip and go to your account</a>
+</div> <!-- .small links -->
+</form> <!-- .form -->
+
+</div> <!-- first tab -->
+
+<!-- we start the Deliver tab here -->
+<div class="ui basic segment" ng-class="{active: step==2}" ng-show="step==2">
+
+	<!-- We start the form here -->
+
+	<form class="ui big form" ng-submit="step=3">
+
+		<!-- these headers / labels include a tooltip, add the tooltip text in the data-tooltip tag -->
+
+		<div class="ui big offer form">
+			<div class="field">
+				<h4 class="label-title">
+					<span class="tooltip" data-tooltip="Enter your zip code so the supplier can estimate their shipping costs" data-position="right center" data-variation="basic">
+						Zip Code of Delivery Address
+						<i class="help circle outline icon"></i>
+					</span>
+				</h4>
+				<input placeholder="e.g. ZIP Code" type="number" min="0" step="1" ng-model="proposal.zip" required>
+
+				<div class="ui checkbox toppad">
+					<input type="checkbox" name="example" id="item1">
+					<label for="item1">Save as default shipping address and add to profile</label>
+				</div>
+
+			</div> <!-- .field -->
+
+			<div class="ui horizontal divider"></div>
+
+			<div class="field">
+				<label>
+					<span data-tooltip="Select which suppliers are able to view your RFP" data-position="right center">
+						<strong>Which suppliers see the proposal?</strong> <i class="help circle outline icon"></i>
+					</span>
+				</label>
+				<div class="ui grouped fields">
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio" id="all" name="audience" value="0" ng-click="checkAudience(0)" checked="checked" required>
+							<label for="all" style="color: black">All suppliers</label>
+						</div>
+					</div>
+					<div class="field">
+						<div class="ui radio checkbox">
+							<input type="radio" id="only" name="audience" value="1" ng-click="checkAudience(1)" required>
+							<label for="only" style="color: black">Only suppliers specializing in selected processes</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="field">
+				<label>
+					<span data-tooltip="Anything unique you would like your supplier to know before submitting a bid?" data-position="right center">
+						<strong>Additional information</strong> <i class="help circle outline icon"></i>
+					</span>
+				</label>
+
+				<textarea cols="6" ng-model="proposal.info" placeholder="e.g. Make sure the silica to clay ratio is 3:1"></textarea>
+
+			</div> <!-- field -->
+		</div> <!-- .big form -->
+
+		<a class="ui big evergreen uppercase orange button" href="" ng-click="step=1">Back</a>
+		<input type="submit" class="ui big evergreen uppercase orange button" value="Continue">
+
+	</form> <!-- .big form -->
+
+
+	<div class="ui horizontal divider"></div>
+
+	<div class="small links">
+		<!-- <a href="" title="Save for later"><i class="save icon"></i> Save for later</a> -->
+		<div class="ui divider"></div>
+		<a href="#!/dashboard" title="Skip">Skip and go to your account</a>
+	</div> <!-- .small links -->
+
+</div> <!-- second -->
+
+<div class="ui basic segment" ng-class="{active: step==3}" ng-show="step==3 || step==4">
+	<form class="ui big form" ng-submit="uploadFiles()">
+
+		<!-- these headers / labels include a tooltip, add the tooltip text in the data-tooltip tag -->
+		<h4 class="label-title">
+			<span class="tooltip" data-tooltip="Add up to 100MB of files for the supplier to view. We accept zip files as well" data-position="right center" data-variation="basic">
+				Proposal Documents
+				<i class="help circle outline icon"></i>
+			</span>
+		</h4>
+
+		<div id="documents" class="ui relaxed items">
+			<div class="item">
+				<label for="documentsInput">
+					<div class="ui tiny image">
+						<div class="plus">
+							+
+						</div>
+					</div>
+				</label>
+
+				<div class="middle aligned content">
+					<div>Upload Documents (you may select multiple files)</div>
+					<small class="footnote">(Ex. file types: CAD, Drawings, Renders)</small>
+				</div>
+			</div> <!-- .item -->
+			<label for="documentsInput">Upload all Documents related to Proposal</label><input id="documentsInput" type="file" multiple>
+		</div> <!-- .items -->
+
+		<div class="ui horizontal divider"></div>
+
+		<h4 class="label-title">
+			<span class="tooltip" data-tooltip="Before any supplier views a file, they have to sign to an NDA. Use Evergreen's to expedite the process" data-position="right center" data-variation="basic">
+				Non-disclosure Agreement
+				<i class="help circle outline icon"></i>
+			</span>
+		</h4>
+
+		<div class="ui big offer form pair">
+
+			<div class="ui two column middle aligned relaxed fitted stackable grid">
+				<div class="column">
+					<div class="ui very padded basic segment">
+						<div class="ui checkbox toppad large-label">
+							<input type="checkbox" name="example" id="item2" ng-model="defaultNDA">
+							<label for="item2">
+								<span class="tooltip" data-tooltip="Our NDA protects your IP from all suppliers" data-position="right center" data-variation="basic">
+									<strong>Use EverGreen Auto-Generated NDA</strong> <i class="help circle outline icon"></i>
+								</span>
+								<small>We generated a personalised NDA with your company details. <a href="" title="View NDA" class="nda-view">View NDA</a>.</small>
+							</label>
+						</div> <!-- .toppad -->
+					</div>
+				</div> <!-- .column -->
+				<div class="ui vertical divider">
+					Or
+				</div>
+				<div class="left aligned column">
+					<div id="NDA" class="ui relaxed items">
+						<div class="item">
+							<div class="ui tiny image">
+								<label for="ndaInput">
+								<div class="plus">
+									+
+								</div> <!-- .plus -->
+							</label>
+							</div>
+							<div class="middle aligned content">
+								<div>Upload</div>
+								<small class="footnote">(Ex. file types: PDF, .doc, .docx)</small>
+							</div>
+						</div> <!-- .item -->
+						<label for="ndaInput">Please upload one NDA file</label><input id="ndaInput" type="file" accept=".pdf">
+					</div> <!-- .items -->
+				</div>
+			</div> <!-- .grid -->
+
+			<div ng-show="step==3" style="margin-top: 1em;">
+				<a class="ui big evergreen uppercase orange button" href="" ng-click="step=2">Back</a>
+				<input ng-show="!uploadingFiles" type="submit" class="ui big evergreen uppercase orange button">
+				<input ng-show="uploadingFiles" type="submit" value="Uploading Files..." class="ui big evergreen uppercase orange button" disabled>
+			</div>
+			<b style="color: lightgreen" ng-show="step==4">Proposal submitted!</b>
+			<br>
+			<b style="color: red; margin-top: 1em;" ng-show="error">{{error}}</b>
+
+		</div> <!-- .big form -->
+
+
+		<div class="ui horizontal divider"></div>
+
+		<div class="small links">
+			<!-- <a href="" title="Save for later"><i class="save icon"></i> Save for later</a> -->
+			<div class="ui divider"></div>
+			<a href="#!/dashboard" title="Skip">Skip and go to your account</a>
+		</div> <!-- .small links -->
+	</form> <!-- .form -->
+
+
+</div> <!-- third -->
+</div> <!-- .steps-nav -->
+</div> <!-- .container -->
+
+<div ng-include="'partials/footer.html'"></div>
+
+<!-- the NDA modal -->
+<div class="ui small modal" id="ndaView">
+	<i class="close icon"></i>
+	<div class="header">
+		Non-disclosure Agreement
+	</div>
+
+	<!-- modal content -->
+	<div class="ui padded basic segment">
+		<div class="ui grid">
+			<div class="sixteen wide tablet sixteen wide computer column">
+				<!-- preview will go here -->
+				<iframe src="https://s3-us-west-1.amazonaws.com/ronintestbucket/public_assets/170128_Mutual_NDA.pdf" width="100%" height="600"></iframe>
+
+			</div>
+		</div> <!-- .grid -->
+	</div>
+	<div class="actions">
+		<a onclick="$('#ndaView').modal('hide');console.log('test');" href="" class="ui fluid grey big uppercase basic button nda-confirmation">Close</a>
+	</div> <!-- .actions -->
+</div> <!-- modal -->
+
+
+<!-- .success modal -->
+<div class="ui tiny basic modal centered aligned proposalSuccess" id="proposalSuccess">
+	<div class="header">
+
+		<img src="static/img/green-check.png" width="100" class="ui centered image" />
+		<div class="ui horizontal divider"></div>
+		Proposal Submitted
+	</div>
+
+	<!-- modal content -->
+	<div class="ui padded basic segment">
+		<p>Your proposal is now live. Check back for offers from our suppliers.</p>
+	</div>
+	<div class="actions">
+
+		<a href="" class="ui fluid evegreen uppercase big green button" ng-click="close(0)">Add Another</a>
+
+		<a href="" class="ui fluid grey big uppercase basic button" ng-click="close(1)">Go to your account</a>
+	</div> <!-- .actions -->
+</div> <!-- modal -->
+
+</div> <!-- #greenwrapper -->
+
+<script src="/static/js/green.js"></script>
+<script type=“text/javascript”>
+$("#completion").datepicker({
+        dateFormat: 'MM dd, yy',
+        altFormat: 'yy-mm-dd'
+    });
+</script>
+</div>

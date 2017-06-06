@@ -1,0 +1,59 @@
+<div class="login">
+
+	<div id="greenwrapper">
+		<header class="ui padded basic segment">
+			<div class="ui secondary menu">
+				<div class="left floated">
+					<img src="static/img/logo-black.png" width="151" class="ui image" />
+				</div>
+
+				<div class="right menu">
+					<a href="" title="Supplier" class="item" ng-click="register(1)">Supplier</a>
+					<a href="" title="Maker" class="item" ng-click="register(0)">Maker</a>
+					<a href="#!/login" title="Log In" class="item">Log In</a>
+				</div>
+			</div> <!-- .menu -->
+		</header>
+
+		<section class="userlogin">
+			<div class="ui container">
+
+				<div class="ui middle aligned center aligned grid screen mid">
+					<div class="column">
+
+						<h2>Recover Password</h2>
+						<p>Enter your email address below to receive a new password</p>
+
+						<form class="ui large form">
+							<div class="ui basic segment">
+								<div class="field">
+									<div class="ui left icon input">
+										<i class="envelope icon"></i>
+										<input type="text" name="email" placeholder="E-mail address">
+									</div>
+								</div> <!-- .field -->
+								<div class="ui fluid big black uppercase submit button">Recover password</div>
+							</div> <!-- .segment -->
+
+						</form>
+
+						<div class="ui horizontal divider"></div>
+
+						<a href="#!/login" title="Login" class="back">Back to login</a>
+
+					</div> <!-- .column -->
+				</div> <!-- .screen.mid -->
+
+			</div> <!-- .container -->
+		</section> <!-- .userlogin -->
+
+		<footer>
+			<p>New to Evergreen?<br />
+				Sign up as a <a href="" title="Maker" ng-click="register(0)">Maker</a> or a <a href="" title="Supplier" ng-click="register(1)">Supplier</a>
+			</p>
+		</footer>
+
+	</div> <!-- #greenwrapper -->
+
+
+</div>

@@ -1,0 +1,105 @@
+<div class="">
+
+	<div id="greenwrapper">
+
+		<div ng-include="'partials/header.html'"></div>
+
+		<section class="ui very padded basic segment">
+			<div class="ui container">
+
+				<div class="ui middle aligned center aligned grid">
+					<div class="column">
+
+						<h2>What is your company's expertise</h2>
+						<p>Select all that apply to your business</p>
+
+						<div class="ui horizontal divider"></div>
+						<div class="ui text container">
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item1" ng-model="process['Automation']">
+								<label for="item1">Automation</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item2" ng-model="process['Batch & Fill']">
+								<label for="item2">Batch &amp; Fill</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item3" ng-model="process['Blow Molding']">
+								<label for="item3">Blow Molding</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item4" ng-model="process['CNC']">
+								<label for="item4">CNC</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item5" ng-model="process['Cut & Sew']">
+								<label for="item5">Cut &amp; Sew</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item6" ng-model="process['Die Casting']">
+								<label for="item6">Die Casting</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item7" ng-model="process['Die Cutting']">
+								<label for="item7">Die Cutting</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item8" ng-model="process['Fiber Molding']">
+								<label for="item8">Fiber Molding</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item9" ng-model="process['Injection Molding']">
+								<label for="item9">Injection Molding</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item10" ng-model="process['Laser Welding']">
+								<label for="item10">Laser Welding</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item14" ng-model="process['Packaging']">
+								<label for="item14">Packaging</label>
+							</div>
+							
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item11" ng-model="process['Printing']">
+								<label for="item11">Printing</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item12" ng-model="process['Screen Printing']">
+								<label for="item12">Screen Printing</label>
+							</div>
+
+							<div class="ui fitted boxed checkbox">
+								<input type="checkbox" id="item13" ng-model="process['Thermaforming']">
+								<label for="item13">Thermaforming</label>
+							</div>
+
+
+						</div>
+						<div class="ui horizontal divider"></div>
+						<!-- The next page should be /opened-proposals -->
+						<a ng-click="setProcesses()" class="ui evergreen upper green button">Continue</a>
+
+					</div> <!-- .column -->
+				</div> <!-- .screen.mid -->
+
+			</div> <!-- .container -->
+		</section> <!-- .userlogin -->
+
+	</div> <!-- #greenwrapper -->
+
+	<script src="static/js/green.js"></script>
+
+</div>

@@ -1,0 +1,122 @@
+<div ng-class="user" class="userarea profile">
+
+	<div id="greenwrapper">
+
+		<div ng-include="'partials/header.html'"></div>
+
+		<section class="ui very padded basic segment offer form">
+
+			<h2 ng-show="viewingOtherProfile">Profile For: {{companyprofile}}</h2>
+			<p ng-if="!viewingOtherProfile">Your public profile as visible to others</p>
+
+			<div class="ui horizontal divider"></div>
+			<div class="ui horizontal divider"></div>
+
+			<div class="ui fluid container">
+				<div class="ui grid">
+					<div ng-show="!viewingOtherProfile" class="sixteen wide tablet sixteen wide computer column">
+						<h4>Company Picture</h4>
+						<div class="ui padded segment noborder">
+							<div class="ui relaxed divided grid">
+								<div class="sixteen wide tablet eight wide computer column middle aligned">
+									<div class="ui large image">
+										<img ng-src="{{picture?picture:'static/img/upload_company.png'}}" class="ui centered image" />
+									</div>
+									<br>
+									<label>Upload new profile Picture:</label> <input style="margin-top:1em;" type="file" id="picture">
+									<button style="margin-top:1em;" ng-class="color" class="ui big uppercase button" ng-click="uploadPicture()" type="button" name="button">Upload Photo</button>
+
+								</div> <!-- .column -->
+								<!-- <div class="sixteen wide tablet eight wide computer column middle aligned">
+									<h4>Your Address</h4>
+									<p class="address footnote op50">
+										610 Overlook Circle Suite 323 Kalamazoo, MI 49009
+									</p>
+								</div>  --> <!-- .column -->
+							</div> <!-- .grid -->
+						</div> <!-- noborder -->
+
+						<h4>Contact Info</h4>
+
+						<div class="ui padded segment noborder">
+							<div class="ui relaxed divided grid">
+								<div class="sixteen wide tablet sixteen wide computer column middle aligned">
+									<div class="ui list social-list">
+										<div class="item">
+											<i class="world icon"></i>
+											<div class="content">
+												<a class="contactlink" target="_blank" ng-show="!editingURLS" href="{{this_user.homepage == null ? '#!/profile':this_user.homepage}}">{{this_user.company}}'s Homepage</a>
+												<span ng-if="!this_user.homepage">
+													&nbsp; {{editingURLS == false ? 'No home page yet!  Add your company link by clicking edit': 'Copy and Paste your home page below'}}
+												</span>
+												<input ng-change="httpFormat(this_user.homepage, 'homepage')" ng-show="editingURLS" type="text" name="homepage" ng-model="this_user.homepage" placeholder="{{this_user.homepage}}">
+											</div>
+										</div>
+										<div class="item">
+											<i class="linkedin icon"></i>
+											<div class="content">
+												<a class="contactlink" target="_blank" ng-show="!editingURLS" href="{{this_user.linkedin == null ? '#!/profile':this_user.linkedin}}">{{this_user.company}}'s Linkedin</a>
+												<span ng-if="!this_user.linkedin">
+													&nbsp; {{editingURLS == false ? 'No LinkedIn page yet!  Add your company link by clicking edit': 'Copy and Paste your LinkedIn page below'}}
+												</span>
+												<input ng-change="httpFormat(this_user.linkedin, 'linkedin')" ng-show="editingURLS" type="text" name="homepage" ng-model="this_user.linkedin" placeholder="{{this_user.linkedin}}">
+
+											</div>
+										</div>
+										<div class="item">
+											<i class="facebook f icon"></i>
+											<div class="content">
+												<a class="contactlink" target="_blank" ng-show="!editingURLS" href="{{this_user.facebook == null ? '#!/profile':this_user.facebook}}">{{this_user.company}}'s Facebook</a>
+												<span ng-if="!this_user.facebook">
+													&nbsp; {{editingURLS == false ? 'No Facebook page yet!  Add your company link by clicking edit': 'Copy and Paste your Facebook page below'}}
+												</span>
+												<input ng-change="httpFormat(this_user.facebook, 'facebook')" ng-show="editingURLS" type="text" name="homepage" ng-model="this_user.facebook" placeholder="{{this_user.facebook}}">
+
+											</div>
+										</div>
+										<div class="item">
+											<i class="twitter icon"></i>
+											<div class="content">
+												<a class="contactlink" target="_blank" ng-show="!editingURLS" href="{{this_user.twitter == null ? '#!/profile':this_user.twitter}}">{{this_user.company}}'s Twitter</a>
+												<span ng-if="!this_user.twitter">
+													&nbsp; {{editingURLS == false ? 'No Twitter page yet!  Add your company link by clicking edit': 'Copy and Paste your Twitter page below'}}
+												</span>
+												<input ng-change="httpFormat(this_user.twitter, 'twitter')" ng-show="editingURLS" type="text" name="homepage" ng-model="this_user.twitter" placeholder="{{this_user.twitter}}">
+
+											</div>
+										</div>
+										<div class="item">
+											<i class="instagram icon"></i>
+											<div class="content">
+												<a class="contactlink" target="_blank" ng-show="!editingURLS" href="{{this_user.instagram == null ? '#!/profile':this_user.instagram}}">{{this_user.company}}'s Instagram</a>
+												<span ng-if="!this_user.instagram">
+													&nbsp; {{editingURLS == false ? 'No Instagram page yet!  Add your company link by clicking edit': 'Copy and Paste your Instagram page below'}}
+												</span>
+												<input ng-change="httpFormat(this_user.instagram, 'instagram')" ng-show="editingURLS" type="text" name="homepage" ng-model="this_user.instagram" placeholder="{{this_user.instagram}}">
+
+											</div>
+										</div>
+										<button ng-class="color" class="ui big uppercase button" ng-show="!editingURLS && !viewingOtherProfile" ng-click="editingURLS=!editingURLS" type="button" name="button">Edit</button> <!--HIDE IF USER IS CURRENTLY EDITING -->
+										<button class="ui big uppercase button green" ng-show="editingURLS" ng-click="updateURLS()" type="button" name="button">Save</button> <!--HIDE IF USER IS NOT CURRENTLY EDITING -->
+										<button class="ui big uppercase button red" ng-show="editingURLS" ng-click="editingURLS=!editingURLS" type="button" name="button">Cancel</button> <!--HIDE IF USER IS NOT CURRENTLY EDITING -->
+									</div> <!-- .ui list -->
+								</div> <!-- .column -->
+								<!-- <div class="sixteen wide tablet eight wide computer column middle aligned">
+									<h4>Your Address</h4>
+									<p class="address footnote op50">
+										610 Overlook Circle Suite 323 Kalamazoo, MI 49009
+									</p>
+								</div>  --> <!-- .column -->
+							</div> <!-- .grid -->
+						</div> <!-- noborder -->
+
+
+		</section> <!-- .very padded segment -->
+
+		<div ng-include="'partials/footer.html'"></div>
+
+	</div> <!-- #greenwrapper -->
+
+
+	<script src="static/js/green.js"></script>
+</div>

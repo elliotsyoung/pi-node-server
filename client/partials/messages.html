@@ -1,0 +1,160 @@
+<div ng-class="user" class="userarea">
+
+	<div id="greenwrapper">
+
+		<div ng-include="'partials/header.html'"></div>
+
+		<section class="ui very padded basic segment offer form">
+
+			<h2>Messages</h2>
+			<p ng-if="type==0">Once you accept an offer for a proposal, you will begin communication with the supplier here.</p>
+			<p ng-if="type==1">Once your offer for a proposal has been accepted, you will begin communication with the company here.</p>
+
+			<div class="ui horizontal divider"></div>
+			<div class="ui horizontal divider"></div>
+
+			<div class="ui left details">
+
+				<div class="ui segment">
+					<div class="ui right aligned grid filters-top">
+
+						<div class="left aligned eight wide column">
+							<p class="count">{{offers.length}} Conversation<span ng-if="offers.length!=1">s</span></p>
+						</div> <!-- left column -->
+						<div class="eight wide column">
+							<!-- <p class="toplabels">Order By:
+								<a href="" title="Date" class="selected-link">Date</a> &bull; <a href="" title="Read / Unread">Read / Unread</a>
+							</p> -->
+						</div> <!-- .right column -->
+					</div>
+				</div>
+
+				<div class="messaging-container">
+					<div style="height: 700px;" class="ui stackable grid">
+						<div style="overflow-y: auto;" class="sixteen wide tablet four wide computer column">
+							<div class="ui menu" ng-repeat="offer in offers">
+								<div class="ui fluid vertical menu">
+									<div class="ui items message-contacts">
+										<div style="text-align: center;">
+											<a href="#!/show-proposal/{{offer.proposal_id}}">{{offer.quantity}} {{offer.product}}</a>
+										</div>
+										<a ng-style="{'background-color': offer.proposal_id==cur_offer.proposal_id&&type?'#7AC200':offer.proposal_id==cur_offer.proposal_id&&!type?'#F6A623':''}" class="item" data-tab="message1" ng-class="{active: offer.proposal_id==cur_offer.proposal_id}" ng-click="showMessages(offer)">
+											<div class="ui tiny image">
+												<img ng-show="offer.type==0" class="ui image" src="{{offer.picture?offer.picture:'static/img/makerdefaultprofilepic.png'}}">
+												<img ng-show="offer.type==1" class="ui image" src="{{offer.picture?offer.picture:'static/img/supplierdefaultprofilepic.png'}}">
+											</div>
+											<div class="middle aligned content">
+												<h4>{{offer.contact}} - {{offer.company}}</h4>
+												<p class="footnote">Connected on: {{offer.updated_at | date:'dd.MM.yyyy'}}</p>
+											</div>
+										</a>
+									</div>
+								</div> <!-- .message-contacts -->
+							</div>
+
+						</div> <!-- left col -->
+
+
+						<div class="sixteen wide tablet twelve wide computer column white padded">
+							<div class="ui padded basic segment">
+								<p class="message-ad" ng-show="!cur_offer">Click on a supplier on the left to load the conversation.</p>
+								<div ng-show="cur_offer">
+									<div style="height: 550px; overflow-y: auto;" class="messages ui padded basic segment" id="chat">
+
+										<!-- Default -->
+										<div class="ui grid">
+											<div class="row ui centered">
+												<div class="twelve wide column">
+													<p style="opacity: 1; text-align: center;" ng-if="type==0">
+														<b style="color: orange">Congratulations on finding a supplier!</b><br><br>
+														Evergreen HQ will be reaching out shortly to coordinate payment.<br><br>
+														If you have any questions in the meantime, reach out to support at 1-800-416-0419.<br><br>
+														Let's say hello to your new supplier below.<br><br>
+													</p>
+													<p style="opacity: 1; text-align: center;" ng-if="type==1">
+														<b style="color: green">Congratulations on winning this proposal!</b><br><br>
+														Evergreen HQ is coordinating payment with you and your client.<br><br>
+														In the meantime, introduce yourself by saying hello!<br><br>
+													</p>
+												</div>
+											</div>
+										</div>
+
+										<div class="ui grid" ng-repeat="message in messages">
+											<div class="row">
+												<div class="two wide column">
+													<!-- <img ng-src="{{message.picture}}" class="ui tiny centered image"> -->
+													<div class="ui tiny image">
+													<img ng-show="message.type==0" class="ui image" ng-src="{{message.picture?message.picture:'static/img/makerdefaultprofilepic.png'}}">
+													<img ng-show="message.type==1" class="ui image" ng-src="{{message.picture?message.picture:'static/img/supplierdefaultprofilepic.png'}}">
+												</div>
+												</div>
+												<div class="fourteen wide column">
+													<b>{{message.contact}} ({{message.company}})</b> - <small class="muted" ng-bind="message.created_at | date:'short'"></small>
+													<p style="opacity: 1;" ng-bind="message.message"></p>
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="send-area ui padded basic segment">
+										<form class="ui fluid action input" ng-submit="createMessage()">
+											<input type="text" placeholder="Enter your message here" ng-model="new_message">
+											<button type="submit" ng-class="color" class="ui evergreen button flat">Send</button>
+										</form>
+
+										<div style="text-align: center">
+											<small>Have an issue, or need to cancel this contract? <a ng-click="ticketCheck()" class="open-modal" href="">Click here to contact an admin.</a></small>
+
+											<br>
+											<small>
+												If messages are not appearing, try refreshing the page.
+											</small>
+											<br>
+											<p ng-bind="ticket_status" style="color: green"></p>
+										</div>
+									</div> <!-- .send-area -->
+								</div>
+							</div>
+						</div>
+					</div> <!-- .grid -->
+
+				</div> <!-- .messaging-container -->
+
+			</div> <!-- .ui left continer -->
+
+		</section> <!-- .very padded segment -->
+
+		<div ng-include="'partials/footer.html'"></div>
+
+
+		<!-- Modal -->
+		<div class="ui small modal" id="create-modal">
+			<div class="actions">
+				<div class="ui cancel button"><i class="remove icon"></i></div>
+			</div>
+			<div class="header">
+				Request to speak with an administrator
+			</div>
+			<div class="ui sixteen padded grid">
+				<form ng-submit="contactAdmin()" class="ui form">
+					<div class="field sixteen wide column">
+						<label>What would you like support with?</label>
+					</div>
+					<div class="field sixteen wide column">
+						<textarea rows="8" cols="80" ng-model="ticket_body"></textarea>
+					</div>
+					<div class="field sixteen wide column">
+						<button class="fluid ui green button" type="submit">Send Ticket</button>
+					</div>
+					<p style="color: red" ng-bind="error"></p>
+					<div class="field sixteen wide column">&nbsp;</div>
+				</form>
+			</div>
+		</div>
+
+	</div> <!-- #greenwrapper -->
+
+	<script src="static/js/modal.js"></script>
+	<script src="static/js/green.js"></script>
+</div>

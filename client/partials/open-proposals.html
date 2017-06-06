@@ -1,0 +1,167 @@
+<div ng-class="supplier" class="userarea">
+
+	<div id="greenwrapper">
+
+		<div ng-include="'partials/header.html'"></div>
+
+		<section class="ui very padded basic segment">
+
+			<h2 id="anchor_header">Open proposals available to you</h2>
+
+			<div class="ui stackable grid">
+				<div class="sixteen wide tablet five wide computer column catcol">
+					<div class="ui padded basic segment wall">
+						<h3>Order by Category</h3>
+
+						<div class="ui filters form">
+							<div class="ui checkbox">
+								<input type="checkbox" id="item2" ng-model="process['Automation']">
+								<label for="item2">Automation</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item3" ng-model="process['Batch & Fill']">
+								<label for="item3">Batch &amp; Fill</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item4" ng-model="process['Blow Molding']">
+								<label for="item4">Blow Molding</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item5" ng-model="process['CNC']">
+								<label for="item5">CNC</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item6" ng-model="process['Cut & Sew']">
+								<label for="item6">Cut &amp; Sew</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item7" ng-model="process['Die Casting']">
+								<label for="item7">Die Casting</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item8" ng-model="process['Die Cutting']">
+								<label for="item8">Die Cutting</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item9" ng-model="process['Fiber Molding']">
+								<label for="item9">Fiber Molding</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item10" ng-model="process['Injection Molding']">
+								<label for="item10">Injection Molding</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item11" ng-model="process['Laser Welding']">
+								<label for="item11">Laser Welding</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item12" ng-model="process['Printing']">
+								<label for="item12">Printing</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item13" ng-model="process['Screen Printing']">
+								<label for="item13">Screen Printing</label>
+							</div> <!-- .checkbox -->
+							<div class="ui checkbox">
+								<input type="checkbox" id="item14" ng-model="process['Thermaforming']">
+								<label for="item14">Thermaforming</label>
+							</div> <!-- .checkbox -->
+						</div>
+
+						<h3>Order</h3>
+
+
+						<div class="ui middle aligned list">
+							<div class="item">
+
+								<div class="content label">
+									By Units:
+								</div>
+
+								<div class="content">
+									<div class="ui fluid selection dropdown">
+										<input type="hidden" name="orderby">
+										<i class="dropdown icon"></i>
+										<div class="default text">Lowest to Highest</div>
+										<div class="menu">
+											<div ng-click="sortExpression = 'quantity'; sortOrder = ''" class="item" data-value="1">Highest to Lowest</div>
+											<div ng-click="sortExpression = 'quantity'; sortOrder = 'reverse'" class="item" data-value="1">Lowest to Highest</div>
+										</div> <!-- .menu -->
+									</div> <!-- .dropdown -->
+								</div> <!-- .content -->
+
+							</div>
+							<div class="item">
+
+								<div class="content label">
+									By Date:
+								</div>
+
+								<div class="content">
+									<div class="ui fluid selection dropdown">
+										<input type="hidden" name="bydate">
+										<i class="dropdown icon"></i>
+										<div class="default text">Most Recent</div>
+										<div class="menu">
+											<div ng-click="sortExpression = 'created_at'; sortOrder = 'reverse'" class="item" data-value="1">Oldest</div>
+											<div ng-click="sortExpression = 'created_at'; sortOrder = ''" class="item" data-value="1">Most Recent</div>
+										</div> <!-- .menu -->
+									</div> <!-- .dropdown -->
+								</div> <!-- .content -->
+
+							</div>
+						</div> <!-- .divided list -->
+
+
+					</div> <!-- .segment -->
+				</div> <!-- .column -->
+				<div class="sixteen wide tablet eleven wide computer column">
+					<!-- this is where the list starts -->
+					<div class="ui resulted items">
+
+						<!-- this is one item -->
+						<div class="item" ng-repeat="proposal in proposals | processFilter:process | orderBy:sortExpression:sortOrder track by $index" ng-if="$index!=10">
+							<!-- used to be ng-if="!$last" so that next button disappears if on last page -->
+								<div class="ui small calendar">
+									{{proposal.created_at | date:"MMM"}}<br />
+									<strong ng-bind="{{proposal.created_at | date:'dd'}}"></strong>
+								</div>
+								<div class="middle aligned content">
+									<div class="header">
+										{{$index+1+(page-1)*10}}. Customer at {{proposal.zip}} looking to produce {{proposal.quantity}} units by {{proposal.completion | date:"mediumDate"}}
+									</div> <!-- ad title -->
+									<div class="description">
+										<p ng-bind-html="proposal.info" style="margin-right: 5px;">
+										</p>
+										<small ng-bind="proposal.processes"></small>
+									</div> <!-- .description -->
+
+								</div>
+								<div class="extra flex">
+									<!-- <a href="#!/show-proposal/{{proposal.id}}" class="ui evergreen green button">View</a> -->
+									<a ng-click="showProposal(proposal.id);" href="" class="ui evergreen green button">View</a>
+								</div>
+						</div> <!-- .item -->
+
+					</div> <!-- .items -->
+
+					<div class="ui pagination secondary menu">
+						<a class="active item" href="#!/open-proposals/{{page-1}}" ng-click="previous()" ng-show="page!=1">
+							Previous
+						</a>
+						<a class="active item" href="#!/open-proposals/{{page+1}}" ng-show="proposals.length>10">
+							Next
+						</a>
+					</div>
+
+				</div> <!-- .column -->
+			</div> <!-- .grid - the big grid, the grid from the top, the grid from above, amin! -->
+
+		</section> <!-- .container -->
+
+		<div ng-include="'partials/footer.html'"></div>
+
+	</div> <!-- #greenwrapper -->
+
+	<script src="static/js/green.js"></script>
+</div>
