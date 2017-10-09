@@ -1,20 +1,15 @@
-const fs = require('fs');
-module.exports = function(server) {
-	var io = require("socket.io").listen(server);
+var io = require('socket.io')();
 
-	io.on('connection', function(socket){
-	  socket.on('chat message', function(msg){
-	    io.emit('chat message', msg);
-	  });
+io.on('connection', function (socket) {
+	console.log(socket.conn.id);
+	socket.on('chat message', function (data) {
+		console.log("MESSAGE:"+ data + " FROM:" + socket.conn.id);
+		io.emit('chat message', data)
 	});
-	let test = io.of('/test');
-	test.on('connection', function(socket){
-		console.log("Connected to test!!");
-	  socket.on('chat message', function(msg){
-	    test.emit('chat message', msg + "Test channel!");
-			fs.readdir('./', (err, files) => {
-				console.log(files);
-			});
-	  });
+	socket.on('subscribe', function (data) {
+		console.log("User:"+ socket.conn.id + " IS JOINING ROOM:" + data.room);
+		socket.join(data.room)
 	});
-}
+});
+
+module.exports = io;

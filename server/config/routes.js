@@ -1,24 +1,34 @@
-var path = require('path');
-var multer = require('multer');
-var storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-		cb(null, `./uploads`)
-	},
-	filename: function (req, file, cb) {
-		cb(null, new Date().toISOString().
-    replace(/T/, '-').      // replace T with a space
-    replace(/\..+/, '').     // delete the dot and everything after)
-    replace(/ /g, '_')  + '-' + file.originalname.replace(/ /g, '_'));
-	}
-});
-var upload = multer({storage: storage});
-// var upload = multer({dest: 'uploads/'});
-
+const path = require('path');
+const io = require('./socket.js');
+const PersonModel = require('../models/person.js');
+const colors = require('colors')
 module.exports = function(app) {
-
 	app.get('/test', (req, res) => {
-		res.json({fucker: 20});
-		console.log("somebody is trying to get us!");
+		console.log("accessed test route.");
+		io.to('town hall').emit("chat message", "this is from the server!")
+		res.json({
+			response: "You have accessed the test route."
+		});
 	});
-
+	app.post('/createperson', (req, res) => {
+		console.log(req.body);
+		const person = new PersonModel({name: req.body.name});
+		person.save()
+		.then(err => {
+			if(err) {console.log(err);}
+			res.json("Success!");
+		})
+	});
+	app.post('/login', (req, res) => {
+		console.log(`USERNAME: ${req.body.username}`.red);
+		console.log(`PASSWORDATTEMPT: ${req.body.username}`.yellow);
+		if(req.body.username == "admin" && req.body.password == "cheese"){
+			res.json("Good job Nic! You hacked in!")
+		} else {
+			res.json("wrong password, try again.")
+		}
+	});
+	app.all("*", (req, res) => {
+		res.sendStatus(404);
+	});
 }
