@@ -17,8 +17,8 @@ const root = __dirname;
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 //Set up default mongoose connection
-const mongoDB = `mongodb://admin:${keys.mongodbpassword}@localhost:27017/FPAL_TA_DB`;
-// const mongoDB = 'mongodb://localhost/FPAL_TA_DB';
+// const mongoDB = `mongodb://admin:${keys.mongodbpassword}@localhost:27017/FPAL_TA_DB`;
+const mongoDB = 'mongodb://localhost/FPAL_TA_DB';
 
 mongoose.connect(mongoDB, {
   useMongoClient: true
@@ -36,11 +36,11 @@ app.set('port', process.env.PORT || 3000); // process.env.PORT can be set outsid
 //################################################################
 // App Middleware
 //################################################################
-app.use(express.static(path.join(root, 'client'))); // requesting a file with an extension, like home.html, will search the client folder in our root directory.
-app.use(express.static(path.join(root, 'bower_components'))); // requests for script tags go into this folder. On the client side you do not need to specify the bower_components folder, just reference from the root directory (e.g. <script src="jquery/dist/jquery.min.js")
 app.use(bodyParser.json()); // the server will expect incoming data to have a JSON format. In Postman this means a request's body should be set to RAW
 app.use(bodyParser.urlencoded({ extended: false })) //Allows postman to send post requests with the request body as x-www-form-urlencoded
 routes(app); // pass in server to have routes set up
+app.use(express.static(path.join(root, 'client'))); // requesting a file with an extension, like home.html, will search the client folder in our root directory.
+app.use(express.static(path.join(root, 'bower_components'))); // requests for script tags go into this folder. On the client side you do not need to specify the bower_components folder, just reference from the root directory (e.g. <script src="jquery/dist/jquery.min.js")
 //################################################################
 // Start the server
 //################################################################

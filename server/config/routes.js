@@ -4,7 +4,7 @@ const PersonModel = require('../models/person.js');
 const colors = require('colors');
 //################################################################
 
-const testPerson = new PersonModel({name: "test"}).save().then(err => {console.log(err);});
+// const testPerson = new PersonModel({name: "test"}).save().then(err => {console.log(err);});
 
 //################################################################
 module.exports = function(app) {
@@ -14,6 +14,10 @@ module.exports = function(app) {
 		res.json({
 			response: "You have accessed the test route."
 		});
+	});
+	app.get('/', (req, res) => {
+		console.log("somebody went to the normal route.");
+		res.sendFile(path.join( __dirname, '../../client/html' ,'index.html') )
 	});
 	app.post('/createperson', (req, res) => {
 		console.log(req.body);
