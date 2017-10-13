@@ -1,7 +1,12 @@
 const path = require('path');
 const io = require('./socket.js');
 const PersonModel = require('../models/person.js');
-const colors = require('colors')
+const colors = require('colors');
+//################################################################
+
+const testPerson = new PersonModel({name: "test"}).save().then(err => {console.log(err);});
+
+//################################################################
 module.exports = function(app) {
 	app.get('/test', (req, res) => {
 		console.log("accessed test route.");
