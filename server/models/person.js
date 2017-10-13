@@ -1,6 +1,6 @@
 //Require Mongoose
 var mongoose = require('mongoose');
-
+mongoose.Promise = require('bluebird');
 //Define a schema
 var Schema = mongoose.Schema;
 
