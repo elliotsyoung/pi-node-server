@@ -17,7 +17,7 @@ const root = __dirname;
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 //Set up default mongoose connection
-var mongoDB = `mongodb://admin:${keys.mongodbpassword}@107.170.227.235:27017/FPAL_TA_DB`;
+var mongoDB = `mongodb://admin:${keys.mongodbpassword}@localhost:27017/FPAL_TA_DB`;
 const mongoDB = 'mongodb://localhost/FPAL_TA_DB';
 
 mongoose.connect(mongoDB, {
