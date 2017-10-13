@@ -21,9 +21,9 @@ module.exports = function(app) {
 	});
 	app.post('/login', (req, res) => {
 		console.log(`USERNAME: ${req.body.username}`.red);
-		console.log(`PASSWORDATTEMPT: ${req.body.username}`.yellow);
-		if(req.body.username == "admin" && req.body.password == "cheese"){
-			res.json("Good job Nic! You hacked in!")
+		console.log(`PASSWORD ATTEMPT: ${req.body.password}`.yellow);
+		if(req.body.username == "admin" && req.body.password == "ccd"){
+			res.json("success")
 		} else {
 			res.json("wrong password, try again.")
 		}

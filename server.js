@@ -6,6 +6,7 @@ const app = express(); // set up server on this object and will later pass this 
 const server = require('http').createServer(app); // the actual server that listens on a port on server.listen(). We will need to pass server into socket.io
 const routes = require('./server/config/routes.js');
 const io = require('./server/config/socket.js'); // Websocket utility for chat and real time interaction. Can be accessed anywhere to emit messages through: const io = require('./server/config/socket.js')
+const keys = require('./keys');
 //################################################################
 // Other Node dependencies
 //################################################################
@@ -16,7 +17,7 @@ const root = __dirname;
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 //Set up default mongoose connection
-// var mongoDB = 'mongodb://admin:TomatoPotato6@107.170.227.235:27017/FPAL_TA_DB';
+var mongoDB = `mongodb://admin:${keys.mongodbpassword}@107.170.227.235:27017/FPAL_TA_DB`;
 const mongoDB = 'mongodb://localhost/FPAL_TA_DB';
 
 mongoose.connect(mongoDB, {
