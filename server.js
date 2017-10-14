@@ -49,3 +49,7 @@ server.listen(app.get('port'), function() {
 });
 
 io.attach(server); //activates websockets for server.
+
+
+
+console.log("The server should have been restarted.");
