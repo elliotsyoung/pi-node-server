@@ -42,7 +42,7 @@ routes(app); // pass in server to have routes set up
 app.use(express.static(path.join(root, 'client'))); // requesting a file with an extension, like home.html, will search the client folder in our root directory.
 app.use(express.static(path.join(root, 'bower_components'))); // requests for script tags go into this folder. On the client side you do not need to specify the bower_components folder, just reference from the root directory (e.g. <script src="jquery/dist/jquery.min.js")
 //################################################################
-// Start the server
+// Start the serverexi
 //################################################################
 server.listen(app.get('port'), function() {
   console.log(`listening on ${app.get('port')}`);

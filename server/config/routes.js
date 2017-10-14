@@ -1,6 +1,7 @@
 const path = require('path');
 const io = require('./socket.js');
 const PersonModel = require('../models/person.js');
+const ResponseModel = require('../models/response.js');
 const colors = require('colors');
 //################################################################
 
@@ -27,6 +28,28 @@ module.exports = function(app) {
 			if(err) {console.log(err);}
 			res.json("Success!");
 		})
+	});
+	app.post('/createresponse', (req, res) => {
+		console.log(req.body);
+		const response = new ResponseModel({type: req.body.type, text:req.body.text});
+		response.save()
+		.then(err => {
+			if(err) {console.log(err);}
+			res.json("Success!");
+		})
+	});
+	app.post('/getresponse', (req, res) => {
+		console.log(req.body);
+		ResponseModel.
+		  find({ type: req.body.type }).
+		  limit(1).
+		  sort('-_id').
+		  select('type text').
+		  exec((err, response) => {
+				if(err) {console.log(err)}
+				console.log(response);
+				res.json({response: response})
+			});
 	});
 	app.post('/login', (req, res) => {
 		console.log(`USERNAME: ${req.body.username}`.red);
