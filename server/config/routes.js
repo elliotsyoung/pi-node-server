@@ -48,7 +48,7 @@ module.exports = function(app) {
 		  exec((err, response) => {
 				if(err) {console.log(err)}
 				console.log(response);
-				res.json({response: response})
+				res.json({response: response[0]})
 			});
 	});
 	app.post('/login', (req, res) => {
