@@ -10,7 +10,7 @@ io.on('connection', function (socket) {
 		if(data === "stop"){
 			readCount=1 //the server will not read the message if the readcount is greater than 0
 		}
-		const response = new ResponseModel({type: "custom_response", text:data, readCount:readCount});
+		const response = new ResponseModel({type: "maya_response", text:data, readCount:readCount});
 		response.save().then(err => {console.log(err);}).catch(err => {console.log(err);})
 	});
 	socket.on('subscribe', function (data) {
