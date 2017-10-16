@@ -20,6 +20,10 @@ module.exports = function(app) {
 		console.log("somebody went to the normal route.");
 		res.sendFile(path.join( __dirname, '../../client/html' ,'index.html') )
 	});
+	app.get('/david', (req, res) => {
+		console.log("somebody went to the normal route.");
+		res.sendFile(path.join( __dirname, '../../client/html' ,'customAlexaResponsePage.html') )
+	});
 	app.post('/createperson', (req, res) => {
 		console.log(req.body);
 		const person = new PersonModel({name: req.body.name});
@@ -44,11 +48,16 @@ module.exports = function(app) {
 		  find({ type: req.body.type }).
 		  limit(1).
 		  sort('-_id').
-		  select('type text').
+		  select('type text readCount').
 		  exec((err, response) => {
 				if(err) {console.log(err)}
 				console.log(response);
-				res.json({response: response[0]})
+				if(response[0].readCount>0){
+					res.json({response:{text:"Could you give me a few more seconds? I'm still processing everything that's going on."}})
+				} else{
+					ResponseModel.update({_id:response[0]._id}, {readCount:1}, (err, raw) => {if(err){console.log(err);}})
+					res.json({response: response[0]})
+				}
 			});
 	});
 	app.post('/login', (req, res) => {
