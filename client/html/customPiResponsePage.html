@@ -24,12 +24,17 @@
     <script>
       $(function () {
         var socket = io();
-        console.log(socket);
         $('form').submit(function(){
-          socket.emit('to room', {room: "pi-client", type: "typing", data:"not typing"})
           socket.emit('to room', {room: "pi-client", type: "chat message", data:$('#m').val()})
           $('#m').val('');
           return false;
+        });
+        $('#m').on('input',() => {
+          if($('#m').val() == ''){
+            socket.emit('to room', {room: "pi-client", type: "typing", data:"not typing"})
+          } else{
+            socket.emit('to room', {room: "pi-client", type: "typing", data:"typing"})
+          }
         });
         socket.on('chat message', function(msg){
           $('#messages').append($('<li>').text(msg));

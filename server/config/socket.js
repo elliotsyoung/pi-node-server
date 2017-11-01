@@ -18,6 +18,7 @@ io.on('connection', function (socket) {
 		socket.join(data.room)
 	});
 	socket.on('to room', function(data){
+		console.log(data);
 		if(data.room){
 			io.to(data.room).emit(data.type, data.data)
 		}
