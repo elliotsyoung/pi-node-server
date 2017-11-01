@@ -33,6 +33,7 @@
           $('#messages').append($('<li>').text(msg));
           window.scrollTo(0, document.body.scrollHeight);
         });
+        socket.emit('subscribe', {room:'alexa-client'});
       });
     </script>
   </body>

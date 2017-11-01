@@ -16,13 +16,17 @@ module.exports = function(app) {
 			response: "You have accessed the test route."
 		});
 	});
-	app.get('/', (req, res) => {
-		console.log("somebody went to the normal route.");
-		res.sendFile(path.join( __dirname, '../../client/html' ,'index.html') )
-	});
+	// app.get('/', (req, res) => {
+	// 	console.log("somebody went to the normal route.");
+	// 	res.sendFile(path.join( __dirname, '../../client/html' ,'index.html') )
+	// });
 	app.get('/david', (req, res) => {
 		console.log("somebody went to the normal route.");
 		res.sendFile(path.join( __dirname, '../../client/html' ,'customAlexaResponsePage.html') )
+	});
+	app.get('/luis', (req, res) => {
+		console.log("somebody went to the normal route.");
+		res.sendFile(path.join( __dirname, '../../client/html' ,'customPiResponsePage.html') )
 	});
 	app.post('/createperson', (req, res) => {
 		console.log(req.body);
@@ -68,6 +72,14 @@ module.exports = function(app) {
 		} else {
 			res.json("wrong password, try again.")
 		}
+	});
+	app.post('/socket-request', (req, res) => {
+		console.log("socket request recieved");
+		console.log(req.body);
+		io.to('pi-client').emit(req.body.request_type, req.body)
+		res.json({
+			response: "You have accessed the test route."
+		});
 	});
 	app.all("*", (req, res) => {
 		res.sendStatus(404);

@@ -27,7 +27,7 @@
         console.log(socket);
         $('form').submit(function(){
           socket.emit('to room', {room: "pi-client", type: "typing", data:"not typing"})
-          socket.emit('chat message', $('#m').val());
+          socket.emit('to room', {room: "pi-client", type: "chat message", data:$('#m').val()})
           $('#m').val('');
           return false;
         });
@@ -35,7 +35,7 @@
           $('#messages').append($('<li>').text(msg));
           window.scrollTo(0, document.body.scrollHeight);
         });
-        socket.emit('subscribe', {room:'town hall'});
+        socket.emit('subscribe', {room:'pi-client'});
       });
     </script>
   </body>
