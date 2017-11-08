@@ -29,6 +29,11 @@ module.exports = function(app) {
 		res.sendFile(path.join( __dirname, '../../client/html' ,'customPiResponsePage.html') )
 		// res.json("Goodbye Kelton.");
 	});
+	app.get('/roman', (req, res) => {
+		console.log("somebody went to the normal route.");
+		res.sendFile(path.join( __dirname, '../../client/html' ,'roman.html') )
+		// res.json("Goodbye Kelton.");
+	});
 	app.post('/createperson', (req, res) => {
 		console.log(req.body);
 		const person = new PersonModel({name: req.body.name});
