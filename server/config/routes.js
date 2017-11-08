@@ -26,8 +26,8 @@ module.exports = function(app) {
 	});
 	app.get('/luis', (req, res) => {
 		console.log("somebody went to the normal route.");
-		// res.sendFile(path.join( __dirname, '../../client/html' ,'customPiResponsePage.html') )
-		res.json("Goodbye Kelton.");
+		res.sendFile(path.join( __dirname, '../../client/html' ,'customPiResponsePage.html') )
+		// res.json("Goodbye Kelton.");
 	});
 	app.post('/createperson', (req, res) => {
 		console.log(req.body);
