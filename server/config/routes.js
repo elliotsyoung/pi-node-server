@@ -34,6 +34,11 @@ module.exports = function(app) {
 		res.sendFile(path.join( __dirname, '../../client/html' ,'roman.html') )
 		// res.json("Goodbye Kelton.");
 	});
+	app.get('/nic', (req, res) => {
+		console.log("somebody went to the normal route.");
+		res.sendFile(path.join( __dirname, '../../client/html' ,'nic.html') )
+		// res.json("Goodbye Kelton.");
+	});
 	app.get('/wes', (req, res) => {
 		console.log("somebody went to the normal route.");
 		res.sendFile(path.join( __dirname, '../../client/html' ,'wes.html') )
