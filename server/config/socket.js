@@ -23,6 +23,7 @@ io.on('connection', function (socket) {
 			io.to(data.room).emit(data.type, data.data)
 		}
 	});
+	socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
 });
 
 module.exports = io;
