@@ -1,12 +1,14 @@
+// attach root directory for later processes.
+global.__base = __dirname + "/";
 //################################################################
 // Major Components
 //################################################################
 const express = require('express'); // for app server object and other middleware
 const app = express(); // set up server on this object and will later pass this to the http to listen on
 const server = require('http').createServer(app); // the actual server that listens on a port on server.listen(). We will need to pass server into socket.io
-const routes = require('./server/config/routes.js');
-const io = require('./server/config/socket.js'); // Websocket utility for chat and real time interaction. Can be accessed anywhere to emit messages through: const io = require('./server/config/socket.js')
-const keys = require('./keys');
+const routes = require(global.__base+'server/config/routes.js');
+const io = require(global.__base+'server/config/socket.js'); // Websocket utility for chat and real time interaction. Can be accessed anywhere to emit messages through: const io = require('./server/config/socket.js')
+const keys = require(global.__base+'keys');
 //################################################################
 // Other Node dependencies
 //################################################################

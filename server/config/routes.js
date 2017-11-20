@@ -16,10 +16,7 @@ module.exports = function(app) {
 			response: "You have accessed the test route."
 		});
 	});
-	// app.get('/', (req, res) => {
-	// 	console.log("somebody went to the normal route.");
-	// 	res.sendFile(path.join( __dirname, '../../client/html' ,'index.html') )
-	// });
+
 	app.get('/david', (req, res) => {
 		console.log("somebody went to the normal route.");
 		res.sendFile(path.join( __dirname, '../../client/html' ,'customAlexaResponsePage.html') )
@@ -44,61 +41,13 @@ module.exports = function(app) {
 		res.sendFile(path.join( __dirname, '../../client/html' ,'wes.html') )
 		// res.json("Goodbye Kelton.");
 	});
-	app.get('/whiteboard-viewer', (req, res) => {
-		console.log("somebody went to the whiteboard route.");
-		res.sendFile(path.join( __dirname, '../../client/html' ,'whiteboard-viewer.html') )
-		// res.json("Goodbye Kelton.");
-	});
-	app.get('/whiteboard-editor', (req, res) => {
-		console.log("somebody went to the whiteboard route.");
-		res.sendFile(path.join( __dirname, '../../client/html' ,'whiteboard-editor.html') )
-		// res.json("Goodbye Kelton.");
-	});
-	app.post('/createperson', (req, res) => {
-		console.log(req.body);
-		const person = new PersonModel({name: req.body.name});
-		person.save()
-		.then(err => {
-			if(err) {console.log(err);}
-			res.json("Success!");
-		})
-	});
-	app.post('/createresponse', (req, res) => {
-		console.log(req.body);
-		const response = new ResponseModel({type: req.body.type, text:req.body.text});
-		response.save()
-		.then(err => {
-			if(err) {console.log(err);}
-			res.json("Success!");
-		})
-	});
-	app.post('/getresponse', (req, res) => {
-		console.log(req.body);
-		ResponseModel.
-		  find({ type: req.body.type }).
-		  limit(1).
-		  sort('-_id').
-		  select('type text readCount').
-		  exec((err, response) => {
-				if(err) {console.log(err)}
-				console.log(response);
-				if(response[0].readCount>0){
-					res.json({response:{text:"Could you give me a few more seconds? I'm still processing everything that's going on."}})
-				} else{
-					ResponseModel.update({_id:response[0]._id}, {readCount:1}, (err, raw) => {if(err){console.log(err);}})
-					res.json({response: response[0]})
-				}
-			});
-	});
-	app.post('/login', (req, res) => {
-		console.log(`USERNAME: ${req.body.username}`.red);
-		console.log(`PASSWORD ATTEMPT: ${req.body.password}`.yellow);
-		if(req.body.username == "admin" && req.body.password == "ccd"){
-			res.json("success")
-		} else {
-			res.json("wrong password, try again.")
-		}
-	});
+
+	// Whiteboard Setup
+	require(global.__base + 'server/controllers/whiteboard-controller.js')(app);
+
+	// Alexa Teaching Assistant routes
+	require(global.__base + 'server/controllers/alexa-ta-controller.js')(app);
+
 	app.post('/socket-request', (req, res) => {
 		console.log("socket request recieved");
 		console.log(req.body);

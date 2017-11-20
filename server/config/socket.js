@@ -5,7 +5,7 @@ io.on('connection', function (socket) {
 	console.log(socket.conn.id);
 	socket.on('chat message', function (data) {
 		console.log("MESSAGE:"+ data + " FROM:"["red"] + socket.conn.id);
-		io.to('alexa-client').emit('chat message', data) //relay chat message back to all in chat room
+		io.to('customAlexaResponsePage').emit('chat message', data) //relay chat message back to all in chat room
 		let readCount = 0
 		if(data === "stop"){
 			readCount=1 //the server will not read the message if the readcount is greater than 0
