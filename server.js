@@ -49,5 +49,4 @@ routes(app); // pass in server to have routes set up
 server.listen(app.get('port'), function() {
   console.log(`listening on ${app.get('port')}`);
 });
-console.log("test!");
 io.attach(server); //activates websockets for server.
