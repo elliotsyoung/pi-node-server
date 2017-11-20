@@ -44,9 +44,14 @@ module.exports = function(app) {
 		res.sendFile(path.join( __dirname, '../../client/html' ,'wes.html') )
 		// res.json("Goodbye Kelton.");
 	});
-	app.get('/whiteboard', (req, res) => {
+	app.get('/whiteboard-viewer', (req, res) => {
 		console.log("somebody went to the whiteboard route.");
-		res.sendFile(path.join( __dirname, '../../client/html' ,'whiteboard.html') )
+		res.sendFile(path.join( __dirname, '../../client/html' ,'whiteboard-viewer.html') )
+		// res.json("Goodbye Kelton.");
+	});
+	app.get('/whiteboard-editor', (req, res) => {
+		console.log("somebody went to the whiteboard route.");
+		res.sendFile(path.join( __dirname, '../../client/html' ,'whiteboard-editor.html') )
 		// res.json("Goodbye Kelton.");
 	});
 	app.post('/createperson', (req, res) => {
