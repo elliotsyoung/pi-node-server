@@ -62,7 +62,5 @@ module.exports = function(app) {
 			response: "You have accessed the test route."
 		});
 	});
-	app.all("*", (req, res) => {
-		res.sendStatus(404);
-	});
+
 }
