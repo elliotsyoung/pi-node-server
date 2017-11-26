@@ -17,6 +17,12 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get('/', (req, res) => {
+		console.log("somebody went to the normal route.");
+		res.sendFile(path.join( __dirname, '../../client/html' ,'index.html') )
+	});
+
+
 	app.get('/david', (req, res) => {
 		console.log("somebody went to the normal route.");
 		res.sendFile(path.join( __dirname, '../../client/html' ,'customAlexaResponsePage.html') )

@@ -1,0 +1,46 @@
+/*This should apply a purple animated striped background*/
+
+/* Styles go here */
+.animationStripes{
+  width: 100%;
+  height: 100vh;
+  background-image: repeating-linear-gradient(-45deg, rgb(0, 0, 0), rgb(0, 0, 0) 25px, purple 25px, purple 50px);
+  -webkit-animation:progress 1s linear infinite;
+  -moz-animation:progress 1s linear infinite;
+  -ms-animation:progress 1s linear infinite;
+  animation:progress 0.5s linear infinite;
+  background-size: 150% 100%;
+}
+
+@-webkit-keyframes progress{
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -75px 0px;
+  }
+}
+@-moz-keyframes progress{
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -75px 0px;
+  }
+}
+@-ms-keyframes progress{
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -75px 0px;
+  }
+}
+@keyframes progress{
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -70px 0px;
+  }
+}
