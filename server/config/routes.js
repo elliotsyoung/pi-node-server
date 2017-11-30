@@ -9,30 +9,30 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage });
 const fs = require('fs');
 
-const aws = require('aws-sdk');
-aws.config.loadFromPath('keys/config.json')
-const s3 = new aws.S3({region: 'us-west-1'});
-const createItemObject = (callback) => {
-  const params = {
-        Bucket: 'e-pi-projects',
-        Key: `testing.txt`,
-        ACL: 'public-read',
-        Body:'just some text I guess.'
-    };
-	s3.putObject(params, function (err, data) {
-		if (err) {
-	    	console.log("Error uploading image: ", err);
-	    	callback(err, null)
-	    } else {
-	    	console.log("Successfully uploaded image on S3", data);
-	    	callback(null, data)
-	    }
-	})
-}
-
-createItemObject((data) =>{
-	console.log(data);
-});
+// const aws = require('aws-sdk');
+// aws.config.loadFromPath('keys/config.json')
+// const s3 = new aws.S3({region: 'us-west-1'});
+// const createItemObject = (callback) => {
+//   const params = {
+//         Bucket: 'e-pi-projects',
+//         Key: `testing.txt`,
+//         ACL: 'public-read',
+//         Body:'just some text I guess.'
+//     };
+// 	s3.putObject(params, function (err, data) {
+// 		if (err) {
+// 	    	console.log("Error uploading image: ", err);
+// 	    	callback(err, null)
+// 	    } else {
+// 	    	console.log("Successfully uploaded image on S3", data);
+// 	    	callback(null, data)
+// 	    }
+// 	})
+// }
+//
+// createItemObject((data) =>{
+// 	console.log(data);
+// });
 //################################################################
 
 // const testPerson = new PersonModel({name: "test"}).save().then(err => {console.log(err);});
