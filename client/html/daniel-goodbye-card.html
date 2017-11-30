@@ -9,7 +9,11 @@
   crossorigin="anonymous"></script>
   <script type="text/javascript">
   $(document).ready(function(){
+
+
+
     var sources = [
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Nic1.m4a',
       'https://s3.amazonaws.com/e-pi-projects/mp3s/Christiana1.m4a',
       'https://s3.amazonaws.com/e-pi-projects/mp3s/Luis1.m4a',
       'https://s3.amazonaws.com/e-pi-projects/mp3s/Pete+1.m4a',
@@ -57,9 +61,17 @@
 
     button.onclick = function() {
       console.log("clicked");
+
+
+
       if(index > sources.length - 1){
         index = 0 ;
       }
+
+
+
+
+
       var audio = new Audio(sources[index]);
       index += 1;
       audio.crossOrigin = "anonymous";
