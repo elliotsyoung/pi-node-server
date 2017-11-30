@@ -9,66 +9,119 @@
   crossorigin="anonymous"></script>
   <script type="text/javascript">
   $(document).ready(function(){
-      var audio = document.getElementById("audio");
-      var button = document.getElementById("button")
-      button.onclick = function() {
-        console.log("clicked");
-        audio.src = "https://s3.amazonaws.com/e-pi-projects/mp3s/appearnew.mp3"
-        audio.load();
-        audio.play();
-        var context = new AudioContext();
-        var src = context.createMediaElementSource(audio);
-        var analyser = context.createAnalyser();
+    var sources = [
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Christiana1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Luis1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Pete+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Jacob1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Pete+2.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Kristin1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/David3.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Chris1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Chris2.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Chris3.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Luis3.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/David+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Luis2.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/David+2.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Jacob2.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Christiana2.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Christiana3.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Jacob3.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Kristin2.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Neal+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Neal+2.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Neal+3.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Kristin3.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Amanda+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Blair+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Blair+2.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Blair+3.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Darren+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Doug+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Jiang+Li+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Karen+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Lark+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Nancy+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Paula+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Sarah+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Sarah+2.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Sarah+3.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Steph+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Tiffany+-+1.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Tiffany+-+2.m4a',
+      'https://s3.amazonaws.com/e-pi-projects/mp3s/Tiffany+-+3.m4a',
+    ]
+    var index = 0
+    var button = document.getElementById("button")
 
-        var canvas = document.getElementById("canvas");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        var ctx = canvas.getContext("2d");
+    button.onclick = function() {
+      console.log("clicked");
+      if(index > sources.length - 1){
+        index = 0 ;
+      }
+      var audio = new Audio(sources[index]);
+      index += 1;
+      audio.crossOrigin = "anonymous";
+      audio.play();
+      audio.onended = function(){
+        setTimeout(function(){
+          context.close();
+        }, 1000)
+      }
+      var context = new AudioContext();
+      var src = context.createMediaElementSource(audio);
+      var analyser = context.createAnalyser();
 
-        src.connect(analyser);
-        analyser.connect(context.destination);
+      var canvas = document.getElementById("canvas");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      var ctx = canvas.getContext("2d");
 
-        analyser.fftSize = 256;
+      src.connect(analyser);
+      analyser.connect(context.destination);
 
-        var bufferLength = analyser.frequencyBinCount;
-        console.log(bufferLength);
+      analyser.fftSize = 256;
 
-        var dataArray = new Uint8Array(bufferLength);
+      var bufferLength = analyser.frequencyBinCount;
+      console.log(bufferLength);
 
-        var WIDTH = canvas.width;
-        var HEIGHT = canvas.height;
+      var dataArray = new Uint8Array(bufferLength);
 
-        var barWidth = (WIDTH / bufferLength) * 2.5;
-        var barHeight;
-        var x = 0;
+      var WIDTH = canvas.width;
+      var HEIGHT = canvas.height;
 
-        function renderFrame() {
-          requestAnimationFrame(renderFrame);
+      var barWidth = (WIDTH / bufferLength) * 2.5;
+      var barHeight;
+      var x = 0;
 
-          x = 0;
+      function renderFrame() {
+        requestAnimationFrame(renderFrame);
 
-          analyser.getByteFrequencyData(dataArray);
+        x = 0;
 
-          ctx.fillStyle = "#001";
-          ctx.fillRect(0, 0, WIDTH, HEIGHT);
+        analyser.getByteFrequencyData(dataArray);
 
-          for (var i = 0; i < bufferLength; i++) {
-            barHeight = dataArray[i];
+        ctx.fillStyle = "#001";
+        ctx.fillRect(0, 0, WIDTH, HEIGHT);
 
-            var r = barHeight + (25 * (i/bufferLength));
-            var g = 250 * (i/bufferLength);
-            var b = 50;
+        for (var i = 0; i < bufferLength; i++) {
+          barHeight = dataArray[i];
 
-            ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-            ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+          var r = barHeight + (25 * (i/bufferLength));
+          var g = 250 * (i/bufferLength);
+          var b = 50;
 
-            x += barWidth + 1;
-          }
+          ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+          ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
+
+          x += barWidth + 1;
         }
+      }
 
-        audio.play();
-        renderFrame();
-      }; //end of click function
+      // audio.play();
+      renderFrame();
+    }; //end of click function
   });
   </script>
   <style media="screen">
@@ -149,6 +202,7 @@
     src: url("fonts/recht26.ttf");
   }
   #canvas{
+    background-color: black;
     width: 100%;
     height: 100%;
   }
@@ -165,8 +219,5 @@
   <div id="visualizer">
     <canvas id="canvas"></canvas>
   </div>
-  <audio crossOrigin="anonymous" id="audio">
-
-  </audio>
 </body>
 </html>
