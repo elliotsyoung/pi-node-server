@@ -47,4 +47,15 @@ module.exports = function(app){
 			res.json("wrong password, try again.")
 		}
 	});
+
+// JUKEBOX settings ##########
+	app.post("/createsong", (req, res) => {
+		
+	});
+// END OF JUKEBOX settings ######################
+
+
+
+
+
 };
