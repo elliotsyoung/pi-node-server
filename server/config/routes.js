@@ -61,6 +61,11 @@ module.exports = function(app) {
     // res.json("Goodbye Kelton.");
   });
 
+  app.get('/pete', (req, res) => {
+    res.sendFile(path.join( global.__base, '/client/html' ,'song_adder.html') )
+    // res.json("Goodbye Kelton.");
+  });
+
   app.get('/daniel-goodbye-card', (req, res) => {
     console.log("somebody went to the normal route.");
     res.header("Access-Control-Allow-Origin", "*");

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- The head tag is invisible, and gives the web browser details about the page -->
+<head>
+
+  <!-- The title of a webpage shows up in the tab on the top of the browser -->
+  <title>Bootstrap Example</title>
+
+  <!-- The character encoding of this document is utf-8 -->
+  <meta charset="utf-8">
+
+
+  <!-- This line here makes mobile devices work with bootstrap -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+
+  <!-- THESE ARE THE BOOTSTRAP DEPENDENCIES -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- END BOOTSTRAP DEPENDENCIES -->
+
+</head>
+
+
+
+<body class="bg-primary">
+<!-- CONTAINER -->
+<div class="container bg-danger">
+
+  <!-- NAVBAR -->
+  <ul class="nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Shop</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Ingredients</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">About</a>
+    </li>
+  </ul>
+  <!-- END OF NAVBAR -->
+
+  <div class="container">
+    <div class="row">
+      <!-- BEGINNING OF COLUMN -->
+      <div class="col-md-4">
+        <form action="/" id="song_form">
+          <div class="form-group">
+            <label for="song_name">Song Name:</label>
+            <input type="text" class="form-control" id="song_name">
+          </div>
+          <div class="form-group">
+            <label for="author">Author:</label>
+            <input type="text" class="form-control" id="author">
+          </div>
+          <div class="form-group">
+            <label for="genre">Genre:</label>
+            <input type="text" class="form-control" id="genre">
+          </div>
+          <div class="form-group">
+            <label for="sound_cloud_link">Sound Cloud Link:</label>
+            <br>
+            <textarea class="form-control" name="sound_cloud_link" form="song_form" id="sound_cloud_link"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <br>
+      </div>
+      <!-- END OF COLUMN -->
+      <div class="col-md-8">
+        <h2>Instructions:</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </div>
+      <!-- END OF COLUMN -->
+
+    </div>
+    <!-- END OF ROW -->
+  </div>
+  <!-- END OF CONTAINER -->
+
+</div>
+<!-- END OF CONTAINER -->
+
+
+</body>
+<!-- END OF BODY -->
+
+</html>
