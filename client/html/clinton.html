@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
+
+
+  <script src="/jQuery-SlotMachine/dist/jquery.slotmachine.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="/jQuery-SlotMachine/dist/jquery.slotmachine.css">
+  <link rel="stylesheet" href="/css/animate.css">
+
+  <style media="screen">
+  body{
+    background-image: url("/img/spacebackground.jpg");
+    background-size: auto;
+  }
+
+  #machine1{
+    height: 400px;
+    /* overflow: scroll; */
+  }
+  img {
+    height: 400px;
+  }
+
+  #header {
+    font-family: 'Rammetto One', cursive;
+  }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container bg-white rounded" style="padding: 1em;">
+
+    <div class="page-header">
+      <h1 id="header" class="text-center ">Loot Box Zone</h1>
+    </div>
+
+    <div class="row justify-content-center" id="machine1">
+      <div class="row justify-content-center">
+        <img id="0" class="rounded" src="https://t1.rbxcdn.com/9e59b73bcaf93be2acf91a81e1dd1011" alt="Cheap Laser Gun">
+      </div>
+      <div class="row justify-content-center">
+        <img id="1" class="rounded" src="https://img-new.cgtrader.com/items/740392/b96612f62b/retro-futuristic-laser-gun-3d-model-blend.png" alt="EXTRA CHEAPER Laser Gun">
+      </div>
+      <div class="row justify-content-center">
+        <img id="2" class="rounded" src="http://www.ancient-origins.net/sites/default/files/styles/large/public/This-meteorite.jpg?itok=yh1fyMt4" alt="Space Rock (worthless)">
+      </div>
+      <div class="row justify-content-center">
+        <img id="3" class="rounded" src="https://i.pinimg.com/236x/a9/f7/cc/a9f7ccafd7341a5e69364931bcfa2803--shovel-blood.jpg" alt="Space Shovel (Might be worth something)">
+      </div>
+      <div class="row justify-content-center">
+        <img id="4" class="rounded" src="https://s-media-cache-ak0.pinimg.com/originals/19/b1/2f/19b12f79d629c3c206795117d279aeef.jpg" alt="Null Void Chamber">
+      </div>
+      <div class="row justify-content-center">
+        <iframe id="5" width="600" height="400" src="https://www.youtube.com/embed/zpWbXltP43o" frameborder="0" alt="Burger King Foot Lettuce" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div class="row justify-content-center">
+        <iframe id="6" alt="Amazing Bearded Man" width="600" height="400" src="https://www.youtube.com/embed/Kh3MctCrLgQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div class="row justify-content-center">
+        <iframe id="7" alt="Two guys with glowing sticks" width="600" height="400" src="https://www.youtube.com/embed/IdyXKJ8NcNI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div class="row justify-content-center">
+        <iframe id="8" alt="Bootleg Troll Doll" width="600" height="400" src="https://www.youtube.com/embed/pdQiSGb4Luw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div class="row justify-content-center">
+        <iframe id="9" alt="5 Gum" width="600" height="400" src="https://www.youtube.com/embed/2B-jYzCMxTM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div class="row justify-content-center">
+        <img id="10" class="rounded" src="https://vignette.wikia.nocookie.net/minecraft-computer/images/b/be/Minecraft-diamond-pic.png/revision/latest?cb=20130820200003" alt="Roblox Gem">
+      </div>
+      <div class="row justify-content-center">
+        <iframe id="11" alt="Wednesday Dude" width="600" height="400" src="https://www.youtube.com/embed/j5crFeXzzp0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div class="row justify-content-center">
+        <iframe id="12" alt="Cephalopod on a Seat" width="600" height="400" src="https://www.youtube.com/embed/xWILHcsYVj8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div class="row justify-content-center">
+        <img id="13" class="rounded" src="http://www.ancient-origins.net/sites/default/files/styles/large/public/This-meteorite.jpg?itok=yh1fyMt4" alt="Another Space Rock">
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row justify-content-center">
+      <button id="machine1button" class="btn btn-lg btn-primary" type="button" name="button">ROLL</button>
+    </div>
+
+    <br>
+
+    <div class="row justify-content-center" hidden>
+      <label for="numberPicker">Choose which number to stop on</label>
+      <input id="numberPicker" type="number" name="" value="" placeholder="enter a number">
+      <button id="numberPickerButton" class="btn btn-primary" type="button" name="button">shuffle</button>
+    </div>
+
+
+    <div class="row">
+      <table id="inventory" class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Inventory</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <!-- Button trigger modal -->
+    <button id="modal-button" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" hidden>
+      Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">New Item!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="modal-body" class="modal-body">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <audio id="leverpullsound" src="sounds/leverpull.mp3" controls hidden>
+    </audio>
+    <audio id="lootboxnoise" src="sounds/lootboxnoise.mp3" controls hidden>
+    </audio>
+    <audio id="spinningnoise" src="sounds/spinningnoise.mp3" controls loop hidden>
+    </audio>
+
+  </div>
+  <script type="text/javascript">
+  $(document).ready(function(){
+    var machine1 = $("#machine1").slotMachine({
+      active	: 1,
+    });
+
+    $('#machine1button').click((e) => {
+      var stoppingIndex = Math.round(Math.random() * 12);
+      // var stoppingIndex = 12;
+
+      if (machine1.running) {
+
+
+        $('#machine1button').removeClass("bg-danger");
+        $('#machine1button').addClass("bg-primary");
+        $('#machine1button').html("ROLL");
+
+        machine1.setRandomize(() => {
+          console.log("The machine will stop at", stoppingIndex);
+          return stoppingIndex;
+        });
+        $("#lootboxnoise").trigger("play");
+        $("#spinningnoise").trigger("pause");
+        $(`#${stoppingIndex}`).removeClass("animated bounceIn");
+        machine1.stop();
+
+        setTimeout(() =>{
+          $(`#${stoppingIndex}`).addClass("animated bounceIn");
+        }, 900)
+        setTimeout(() =>{
+          var innerText = $(`#${stoppingIndex}`).attr("alt");
+          var newTableRow = `<tr><td>${innerText}</td></tr>`
+          $('#modal-body').html(innerText);
+          $('#inventory').append(newTableRow);
+
+
+          $('#modal-button').click();
+
+          if (stoppingIndex == 5) {
+            var videoURL = $('#5').prop('src');
+            videoURL += "?autoplay=1";
+            $('#5').prop('src',videoURL);
+          } else if (stoppingIndex == 6) {
+            var videoURL = $('#6').prop('src');
+            videoURL += "?autoplay=1";
+            $('#6').prop('src',videoURL);
+
+          } else if (stoppingIndex == 7) {
+            var videoURL = $('#7').prop('src');
+            videoURL += "?autoplay=1";
+            $('#7').prop('src',videoURL);
+
+          } else if (stoppingIndex == 8) {
+            var videoURL = $('#8').prop('src');
+            videoURL += "?autoplay=1";
+            $('#8').prop('src',videoURL);
+          } else if (stoppingIndex == 9) {
+            var videoURL = $('#9').prop('src');
+            videoURL += "?autoplay=1";
+            $('#9').prop('src',videoURL);
+
+          } else if (stoppingIndex == 11) {
+            var videoURL = $('#11').prop('src');
+            videoURL += "?start=34&autoplay=1";
+            $('#11').prop('src',videoURL);
+
+          } else if (stoppingIndex == 12) {
+            var videoURL = $('#12').prop('src');
+            videoURL += "?autoplay=1";
+            $('#12').prop('src',videoURL);
+
+          }
+
+        }, 1000);
+      } else{
+        $('#machine1button').removeClass("bg-primary");
+        $('#machine1button').addClass("bg-danger");
+        $('#machine1button').html("STOP");
+
+
+        $("#leverpullsound").trigger("play");
+        $("#spinningnoise").trigger("play");
+        machine1.shuffle((index) => {
+          console.log(index);
+        });
+      }
+    });
+
+    $('#numberPickerButton').click((e) => {
+      var stoppingIndex = $('#numberPicker').val();
+      if (machine1.running) {
+        machine1.setRandomize(() => {
+          console.log("The machine will stop at", stoppingIndex);
+          return stoppingIndex;
+        });
+        $("#lootboxnoise").trigger("play");
+        $("#spinningnoise").trigger("pause");
+        $(`#${stoppingIndex}`).removeClass("animated bounceIn");
+        machine1.stop();
+
+        setTimeout(() =>{
+          $(`#${stoppingIndex}`).addClass("animated bounceIn");
+        }, 900)
+        setTimeout(() =>{
+          var innerText = $(`#${stoppingIndex}`).attr("alt");
+          var newTableRow = `<tr><td>${innerText}</td></tr>`
+          $('#modal-body').html(innerText);
+          $('#inventory').append(newTableRow);
+
+
+          $('#modal-button').click();
+        }, 1000);
+      }
+    });
+
+
+  });
+
+  </script>
+</div>
+
+</body>
+</html>

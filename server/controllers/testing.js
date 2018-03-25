@@ -5,6 +5,9 @@ const SongModel = require(global.__base+ 'server/models/song.js');
 module.exports = function(app){
   const testSong = new SongModel(
     {
+      song_name: "New song duuude",
+      artist_first_name: "dewd",
+      artist_last_name: "manson",
       artist: "Elliot Young",
       genre: "Techno Funk",
       sound_cloud_url: "<embed>Test</embed>",

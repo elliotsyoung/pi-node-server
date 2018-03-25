@@ -2,6 +2,7 @@ const path = require('path');
 const io = require('./socket.js');
 const PersonModel = require('../models/person.js');
 const ResponseModel = require('../models/response.js');
+const SongModel = require('../models/song.js');
 const colors = require('colors');
 
 const multer = require('multer');
@@ -63,7 +64,68 @@ module.exports = function(app) {
 
   app.get('/pete', (req, res) => {
     res.sendFile(path.join( global.__base, '/client/html' ,'song_adder.html') )
-    // res.json("Goodbye Kelton.");
+  });
+
+  app.post('/create_song', (req, res) => {
+    const requiredFields = ['song_name', 'artist_first_name', 'artist_last_name', 'genre', 'sound_cloud_link'];
+    const missingFields = getMissingFields(requiredFields, req.body)
+    if(missingFields.length < 1){
+      const newSong = new SongModel(req.body);
+      newSong.save((err) => {
+        if(err){
+          console.log(err);
+          res.send("Error Saving to Database")
+        } else{
+          console.log("======song saved to database:======");
+          console.log(req.body);
+          console.log("===================================");
+          res.redirect("/pete");
+        }
+      });
+    } else{
+      res.send("Missing fields:" + missingFields.join(", "));
+    }
+  });
+
+  app.post('/get_newest_song_from_artist', (req, res) => {
+    const requiredFields = ['artist'];
+    const missingFields = getMissingFields(requiredFields, req.body);
+    if (missingFields.length < 1) {
+      SongModel.find({artist: req.body.artist})
+      .sort({_id:-1})
+      .limit(1)
+      .exec( (err, data) =>{
+        if (err) {
+          console.log(err);
+          res.json({response_text: "There was an error with the database."})
+        } else {
+          if(data.length > 0){
+            const newestSong = data[0];
+            const response_text = `Here's a new song from ${newestSong.artist} called ${newestSong.name}`;
+            res.json({response_text:response_text});
+          } else{
+            res.json({response_text: "I couldn't find any songs from that author, sorry."})
+          }
+        }
+      });
+    } else {
+      res.json("error");
+    }
+  });
+
+  function getMissingFields(requiredFields, submittedInputs){
+    let missingFields = [];
+    for(field of requiredFields){
+      if(!submittedInputs[field]){
+        missingFields.push(field)
+      }
+    }
+    return missingFields;
+  }
+
+
+  app.get('/clinton', (req, res) => {
+    res.sendFile(path.join( __dirname, '../../client/html' ,'clinton.html'))
   });
 
   app.get('/daniel-goodbye-card', (req, res) => {
@@ -81,7 +143,7 @@ module.exports = function(app) {
   require(global.__base + 'server/controllers/alexa-ta-controller.js')(app);
 
   //  testing routes
-  require(global.__base + 'server/controllers/testing.js')(app);
+  // require(global.__base + 'server/controllers/testing.js')(app);
 
   app.post('/socket-request', (req, res) => {
     console.log("socket request recieved");

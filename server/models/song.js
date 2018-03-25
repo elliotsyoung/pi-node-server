@@ -6,10 +6,12 @@ const Schema = mongoose.Schema;
 
 const SongSchema = new Schema(
   {
-    artist: String,
-    genre: String,
+    song_name: String,
+    artist_first_name: String,
+    artist_last_name: String,
+    genre: {type: String, default: "no genre"},
     sound_cloud_url: String,
-    description: String,
+    description: {type: String, default: "no description"},
     play_count: {type: Number, default: 0},
     date_created: {type: Date, default: Date.now()}
   }
