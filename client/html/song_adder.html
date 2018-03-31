@@ -24,46 +24,38 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <!-- END BOOTSTRAP DEPENDENCIES -->
 
+
+
+  <!-- Custom styling (one day I'll do external css, today is not that day.) -->
+  <style media="screen">
+  #wrapper{
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+  </style>
+
 </head>
 
 
 
-<body class="bg-primary">
+<body class="">
 <!-- CONTAINER -->
-<div class="container bg-danger">
-
-  <!-- NAVBAR -->
-  <ul class="nav">
-    <li class="nav-item">
-      <a class="nav-link" href="#">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Shop</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Ingredients</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">About</a>
-    </li>
-  </ul>
-  <!-- END OF NAVBAR -->
-
-  <div class="container">
+<div class="container-fluid">
+  <div id="wrapper" class="container-fluid">
     <div class="row">
       <!-- BEGINNING OF COLUMN -->
       <div class="col-md-4">
         <form action="/create_song" id="song_form" method="post">
           <div class="form-group">
-            <label for="song_name">Song Name:</label>
+            <label for="song_name"><strong>Song Name</strong>:</label>
             <input type="text" name="song_name" class="form-control" id="song_name">
           </div>
           <div class="form-group">
-            <label for="artist_first_name">Artist's First Name:</label>
+            <label for="artist_first_name">Artist's <strong>First Name</strong>:</label>
             <input type="text" name="artist_first_name" class="form-control" id="artist_first_name">
           </div>
           <div class="form-group">
-            <label for="artist_last_name">Artist's Last Name:</label>
+            <label for="artist_last_name">Artist's <strong>Last Name</strong>:</label>
             <input type="text" name="artist_last_name" class="form-control" id="artist_last_name">
           </div>
           <div class="form-group">
@@ -71,7 +63,7 @@
             <input type="text" name="genre" class="form-control" id="genre">
           </div>
           <div class="form-group">
-            <label for="sound_cloud_link">Sound Cloud Link:</label>
+            <label for="sound_cloud_link"><strong>Sound Cloud Link</strong>:</label>
             <br>
             <textarea class="form-control" name="sound_cloud_link" form="song_form" id="sound_cloud_link"></textarea>
           </div>
@@ -81,8 +73,16 @@
       </div>
       <!-- END OF COLUMN -->
       <div class="col-md-8">
-        <h2>Hello Soraya!</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h2>Instructions for Sound Cloud Link:</h2>
+        <h4 class="bg-warning" style="padding: 1em; border-radius: 1em;">1. Go to the song's coundcloud page and click the share button</h4>
+        <img class="img-fluid" src="img/song_adder_instruction_1.png" alt="">
+
+        <br>
+        <br>
+
+        <h4 class="bg-warning" style="padding: 1em; border-radius: 1em;">2. Click the "Embed" option on the top and check the "autoplay" box. Copy the embed code and paste it into the "Sound Cloud Link" field.</h4>
+        <img class="img-fluid" src="img/song_adder_instruction_2.png" alt="">
+
       </div>
       <!-- END OF COLUMN -->
 
