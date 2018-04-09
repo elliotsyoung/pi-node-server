@@ -1,99 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <!-- The head tag is invisible, and gives the web browser details about the page -->
-<head>
 
+<head>
   <!-- The title of a webpage shows up in the tab on the top of the browser -->
   <title>Bootstrap Example</title>
-
   <!-- The character encoding of this document is utf-8 -->
   <meta charset="utf-8">
-
-
   <!-- This line here makes mobile devices work with bootstrap -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-
-
   <!-- THESE ARE THE BOOTSTRAP DEPENDENCIES -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <!-- END BOOTSTRAP DEPENDENCIES -->
-
-
-
   <!-- Custom styling (one day I'll do external css, today is not that day.) -->
   <style media="screen">
-  #wrapper{
-    margin-top: 2em;
-    margin-bottom: 2em;
-  }
+    #wrapper {
+      margin-top: 2em;
+      margin-bottom: 2em;
+    }
   </style>
-
 </head>
 
-
-
 <body class="">
-<!-- CONTAINER -->
-<div class="container-fluid">
-  <div id="wrapper" class="container-fluid">
-    <div class="row">
-      <!-- BEGINNING OF COLUMN -->
-      <div class="col-md-4">
-        <form action="/create_song" id="song_form" method="post">
-          <div class="form-group">
-            <label for="song_name"><strong>Song Name</strong>:</label>
-            <input type="text" name="song_name" class="form-control" id="song_name">
-          </div>
-          <div class="form-group">
-            <label for="artist_first_name">Artist's <strong>First Name</strong>:</label>
-            <input type="text" name="artist_first_name" class="form-control" id="artist_first_name">
-          </div>
-          <div class="form-group">
-            <label for="artist_last_name">Artist's <strong>Last Name</strong>:</label>
-            <input type="text" name="artist_last_name" class="form-control" id="artist_last_name">
-          </div>
-          <div class="form-group">
-            <label for="genre">Genre:</label>
-            <input type="text" name="genre" class="form-control" id="genre">
-          </div>
-          <div class="form-group">
-            <label for="sound_cloud_link"><strong>Sound Cloud Link</strong>:</label>
-            <br>
-            <textarea class="form-control" name="sound_cloud_link" form="song_form" id="sound_cloud_link"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
+  <!-- CONTAINER -->
+  <div class="container-fluid">
+    <div id="wrapper" class="container-fluid">
+      <div class="row">
+
+        <!-- SONG ADDER FORM -->
+        <!-- BEGINNING OF COLUMN -->
+        <div class="col-md-4">
+          <form action="/create_song" id="song_form" method="post">
+            <!-- song name input -->
+            <div class="form-group">
+              <label for="song_name"><strong>Song Name</strong>:</label>
+              <input type="text" name="song_name" class="form-control" id="song_name">
+            </div>
+            <!-- first name input -->
+            <div class="form-group">
+              <label for="artist_first_name">Artist's <strong>First Name</strong>:</label>
+              <input type="text" name="artist_first_name" class="form-control" id="artist_first_name">
+            </div>
+            <!-- last name input -->
+            <div class="form-group">
+              <label for="artist_last_name">Artist's <strong>Last Name</strong>:</label>
+              <input type="text" name="artist_last_name" class="form-control" id="artist_last_name">
+            </div>
+            <!-- genre input -->
+            <div class="form-group">
+              <label for="genre">Genre:</label>
+              <input type="text" name="genre" class="form-control" id="genre">
+            </div>
+            <!-- sound cloud link input -->
+            <div class="form-group">
+              <label for="sound_cloud_link"><strong>Sound Cloud Link</strong>:</label>
+              <br>
+              <textarea class="form-control" name="sound_cloud_link" form="song_form" id="sound_cloud_link"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          <br>
+        </div>
+        <!-- END OF COLUMN -->
+        <!-- INSTRUCTIONS -->
+        <div class="col-md-8">
+          <h2>Instructions for Sound Cloud Link:</h2>
+          <h4 class="bg-warning" style="padding: 1em; border-radius: 1em;">1. Go to the song's coundcloud page and click the share button</h4>
+          <img class="img-fluid" src="img/song_adder_instruction_1.png" alt="">
+          <br>
+          <br>
+          <h4 class="bg-warning" style="padding: 1em; border-radius: 1em;">2. Click the "Embed" option on the top and check the "autoplay" box. Copy the embed code and paste it into the "Sound Cloud Link" field.</h4>
+          <img class="img-fluid" src="img/song_adder_instruction_2.png" alt="">
+        </div>
+        <!-- END OF COLUMN -->
       </div>
-      <!-- END OF COLUMN -->
-      <div class="col-md-8">
-        <h2>Instructions for Sound Cloud Link:</h2>
-        <h4 class="bg-warning" style="padding: 1em; border-radius: 1em;">1. Go to the song's coundcloud page and click the share button</h4>
-        <img class="img-fluid" src="img/song_adder_instruction_1.png" alt="">
-
-        <br>
-        <br>
-
-        <h4 class="bg-warning" style="padding: 1em; border-radius: 1em;">2. Click the "Embed" option on the top and check the "autoplay" box. Copy the embed code and paste it into the "Sound Cloud Link" field.</h4>
-        <img class="img-fluid" src="img/song_adder_instruction_2.png" alt="">
-
-      </div>
-      <!-- END OF COLUMN -->
-
+      <!-- END OF ROW -->
     </div>
-    <!-- END OF ROW -->
+    <!-- END OF CONTAINER -->
   </div>
   <!-- END OF CONTAINER -->
-
-</div>
-<!-- END OF CONTAINER -->
-
 
 </body>
 <!-- END OF BODY -->
