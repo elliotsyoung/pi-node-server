@@ -3,6 +3,8 @@ const io = require('./socket.js');
 const PersonModel = require('../models/person.js');
 const ResponseModel = require('../models/response.js');
 const SongModel = require('../models/song.js');
+const Clinton_ItemModel = require('../models/clinton_item.js');
+const Clinton_Inventory_ItemModel = require('../models/clinton_inventory_item.js');
 const colors = require('colors');
 
 const multer = require('multer');
@@ -125,8 +127,55 @@ module.exports = function(app) {
   }
 
   app.get('/clinton', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../client/html', 'clinton.html'))
+    Clinton_ItemModel.find({}).exec((err, data) => {
+      if (err) {
+        console.log(err);
+        res.send(err)
+      } else {
+        console.log(data);
+        res.render('clinton.ejs', {clinton_items: data});
+      }
+    });
   });
+
+  app.get("/neal", ((req, res) => {
+    Clinton_ItemModel.find({}).exec((err, data) => {
+      if (err) {
+        console.log(err);
+        res.send(err)
+      } else {
+        res.render('neal.ejs', {clinton_items: data});
+      }
+    });
+  }))
+
+  app.post("/create_clinton_item", (req, res) => {
+    const requiredFields = ["item_name", "item_description", "picture_url"];
+    const missingFields = getMissingFields(requiredFields, req.body);
+    if (missingFields.length > 0) {
+      res.send(`Missing: ${missingFields.join(" ")}`);
+    } else {
+      const newClinton_Item = new Clinton_ItemModel(req.body);
+      newClinton_Item.save((err) => {
+        if (err) {
+          res.send(err)
+        } else {
+          res.redirect("/neal");
+        }
+      })
+    }
+  });
+
+  app.post("/add_clinton_item_to_inventory", (req, res) => {
+    const new_Clinton_Inventory_Item = new Clinton_Inventory_ItemModel(req.body);
+    new_Clinton_Inventory_Item.save((err) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send("Saved Item");
+      }
+    })
+  })
 
   app.get('/daniel-goodbye-card', (req, res) => {
     console.log("somebody went to the normal route.");

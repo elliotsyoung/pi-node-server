@@ -27,5 +27,5 @@ const SongSchema = new Schema({
   }
 });
 
-//Export function to create "SomeModel" model class
+//Exports function to create "SomeModel" model class
 module.exports = mongoose.model('song', SongSchema);

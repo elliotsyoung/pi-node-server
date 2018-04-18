@@ -44,7 +44,7 @@
     <div class="page-header">
       <h1 id="header" class="text-center ">Loot Box Zone</h1>
     </div>
-
+    <!--
     <div class="row justify-content-center" id="machine1">
       <div class="row justify-content-center">
         <img id="0" class="rounded" src="https://t1.rbxcdn.com/9e59b73bcaf93be2acf91a81e1dd1011" alt="Cheap Laser Gun">
@@ -88,6 +88,17 @@
       <div class="row justify-content-center">
         <img id="13" class="rounded" src="http://www.ancient-origins.net/sites/default/files/styles/large/public/This-meteorite.jpg?itok=yh1fyMt4" alt="Another Space Rock">
       </div>
+    </div>
+     -->
+    <div class="row justify-content-center" id="machine1">
+      <% for(var i=0;i<clinton_items.length;i++){ %>
+        <div class="row justify-content-center">
+          <img id="<%=i%>" class="rounded" src="<%=clinton_items[i].picture_url%>" data-description="<%=clinton_items[i].item_description%>" data-name="<%=clinton_items[i].item_name%>">
+        </div>
+        <% }%>
+          <div class="row justify-content-center">
+            <img id="100" class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Question_Mark.svg/2000px-Question_Mark.svg.png" data-description="test" data-name="">
+          </div>
     </div>
 
     <br>
@@ -155,7 +166,7 @@
       });
 
       $('#machine1button').click((e) => {
-        var stoppingIndex = Math.round(Math.random() * 12);
+        var stoppingIndex = Math.round(Math.random() * <%=clinton_items.length%>);
         // var stoppingIndex = 12;
 
         if (machine1.running) {
@@ -178,7 +189,7 @@
             $(`#${stoppingIndex}`).addClass("animated bounceIn");
           }, 900)
           setTimeout(() => {
-            var innerText = $(`#${stoppingIndex}`).attr("alt");
+            var innerText = $(`#${stoppingIndex}`).attr("data-name");
             if (innerText) {
               $.post("/add_clinton_item_to_inventory", {
                 item_name: innerText
@@ -193,40 +204,6 @@
 
             $('#modal-button').click();
 
-            if (stoppingIndex == 5) {
-              var videoURL = $('#5').prop('src');
-              videoURL += "?autoplay=1";
-              $('#5').prop('src', videoURL);
-            } else if (stoppingIndex == 6) {
-              var videoURL = $('#6').prop('src');
-              videoURL += "?autoplay=1";
-              $('#6').prop('src', videoURL);
-
-            } else if (stoppingIndex == 7) {
-              var videoURL = $('#7').prop('src');
-              videoURL += "?autoplay=1";
-              $('#7').prop('src', videoURL);
-
-            } else if (stoppingIndex == 8) {
-              var videoURL = $('#8').prop('src');
-              videoURL += "?autoplay=1";
-              $('#8').prop('src', videoURL);
-            } else if (stoppingIndex == 9) {
-              var videoURL = $('#9').prop('src');
-              videoURL += "?autoplay=1";
-              $('#9').prop('src', videoURL);
-
-            } else if (stoppingIndex == 11) {
-              var videoURL = $('#11').prop('src');
-              videoURL += "?start=34&autoplay=1";
-              $('#11').prop('src', videoURL);
-
-            } else if (stoppingIndex == 12) {
-              var videoURL = $('#12').prop('src');
-              videoURL += "?autoplay=1";
-              $('#12').prop('src', videoURL);
-
-            }
 
           }, 1000);
         } else {
@@ -259,7 +236,7 @@
             $(`#${stoppingIndex}`).addClass("animated bounceIn");
           }, 900)
           setTimeout(() => {
-            var innerText = $(`#${stoppingIndex}`).attr("alt");
+            var innerText = $(`#${stoppingIndex}`).attr("data-name");
             var newTableRow = `<tr><td>${innerText}</td></tr>`
             $('#modal-body').html(innerText);
             $('#inventory').append(newTableRow);
