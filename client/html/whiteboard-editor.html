@@ -1,14 +1,44 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Socket.IO whiteboard</title>
   <link rel="stylesheet" href="css/whiteboard.css">
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+  <style media="screen">
+    #eraser {
+      background-image: url("http://downloadicons.net/sites/default/files/eraser-icon-38164.png");
+      width: 48px;
+      height: 48px;
+      background-size: cover;
+      display: inline-block;
+    }
+
+    #plus {
+      width: 48px;
+      height: 48px;
+      background-size: cover;
+      display: inline-block;
+      background-image: url("https://vignette.wikia.nocookie.net/risingthunder/images/e/ea/Plus-sign-with-transperancy-public-domain.png/revision/latest?cb=20150820122258");
+
+    }
+
+    #minus {
+      width: 48px;
+      height: 48px;
+      background-size: cover;
+      display: inline-block;
+      background-image: url("http://www.clker.com/cliparts/3/6/4/b/12914263301547445417green-plus-minus-hi-hi.png");
+    }
+  </style>
+
 </head>
+
 <body>
 
-  <canvas class="whiteboard" ></canvas>
+  <canvas class="whiteboard"></canvas>
 
   <div class="colors">
     <div class="color black"></div>
@@ -16,8 +46,12 @@
     <div class="color green"></div>
     <div class="color blue"></div>
     <div class="color yellow"></div>
+    <div id="eraser" class="color white" style="border: solid black 1px;"></div>
+    <div id="plus" style="border: solid black 1px;"></div>
+    <div id="minus" style="border: solid black 1px;"></div>
   </div>
 
   <script src="js/main.js"></script>
 </body>
+
 </html>
