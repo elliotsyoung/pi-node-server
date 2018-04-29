@@ -29,6 +29,7 @@ io.on('connection', function(socket) {
   });
   socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
   socket.on('changeBrushSize', (data) => socket.broadcast.emit('changeBrushSize', data));
+  socket.on('clear whiteboard', (data) => socket.broadcast.emit('clear whiteboard', data));
 });
 
 module.exports = io;

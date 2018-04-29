@@ -29,6 +29,12 @@
     console.log("clicked eraser");
   })
 
+  document.getElementById("clear").addEventListener('click', (e) => {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    socket.emit("clear whiteboard", {});
+    console.log("cleared canvas");
+  })
+
   function colorButtonClicked(e) {
     console.log(this.getAttribute("class"));
 
@@ -82,6 +88,10 @@
   socket.on('changeBrushSize', (newWidth) => {
     lineWidth = newWidth;
     redrawBrushSize(true);
+  })
+
+  socket.on('clear whiteboard', (data) => {
+    context.clearRect(0, 0, canvas.width, canvas.height);
   })
 
   window.addEventListener('resize', onResize, false);
