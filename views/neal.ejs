@@ -56,6 +56,32 @@
           </div>
           <% }%>
       </div>
+
+      <div class="col-2 offset-1">
+        <h2 class="padded-rounded-corners-title bg-success text-center">Clinton Points</h2>
+        <h3 id="clinton_points_total" class="text-center"></h3>
+        <button id="add_clinton_point" class="btn btn-primary" type="button" name="button">Add Clinton Point</button>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            var clinton_points_total = 0;
+
+            $.post("/get_clinton_points", {})
+              .done(function(data) {
+                clinton_points_total = data.points;
+                $("#clinton_points_total").html(clinton_points_total)
+              });
+
+            $("#add_clinton_point").click(function() {
+              $.post("/add_clinton_points", {})
+                .done(function(data) {
+                  clinton_points_total += 1;
+                  $("#clinton_points_total").html(clinton_points_total)
+                });
+            })
+
+          });
+        </script>
+      </div>
     </div>
   </div>
 

@@ -105,6 +105,10 @@
 
     <div class="row justify-content-center">
       <button id="machine1button" class="btn btn-lg btn-primary" type="button" name="button">ROLL</button>
+
+      <button id="clinton_points_total" class="btn btn-lg btn-warn" type="button" name="button" disabled></button>
+
+
     </div>
 
     <br>
@@ -161,11 +165,54 @@
   </div>
   <script type="text/javascript">
     $(document).ready(function() {
+
+      var clinton_points_total = 0;
+
+      var isSpinning = false;
+
+      $.post("/get_clinton_points", {})
+        .done(function(data) {
+          clinton_points_total = data.points;
+          $("#clinton_points_total").html("points remaining: " + clinton_points_total);
+          if (clinton_points_total < 1) {
+            $('#machine1button').attr('disabled', 'disabled');
+          }
+        });
+
+      $.post("/get_clinton_inventory_items", {})
+        .done(function(data) {
+          clinton_inventory_items = data.items;
+
+          for (item of clinton_inventory_items) {
+            var newTableRow = `<tr><td>${item.item_name}</td></tr>`
+            $('#inventory').append(newTableRow);
+          }
+
+        });
+
+
       var machine1 = $("#machine1").slotMachine({
         active: 1,
       });
 
       $('#machine1button').click((e) => {
+
+        if (!isSpinning) {
+          $.post("/spend_clinton_point", {})
+            .done(function(data) {
+              clinton_points_total -= 1;
+              $("#clinton_points_total").html("points remaining: " + clinton_points_total)
+              isSpinning = true;
+            });
+        } else {
+          isSpinning = false;
+          if (clinton_points_total < 1) {
+            $('#machine1button').attr('disabled', 'disabled');
+          }
+        }
+
+
+
         var stoppingIndex = Math.round(Math.random() * <%=clinton_items.length%>);
         // var stoppingIndex = 12;
 
@@ -238,8 +285,8 @@
           setTimeout(() => {
             var innerText = $(`#${stoppingIndex}`).attr("data-name");
             var newTableRow = `<tr><td>${innerText}</td></tr>`
-            $('#modal-body').html(innerText);
             $('#inventory').append(newTableRow);
+            $('#modal-body').html(innerText);
 
 
             $('#modal-button').click();
