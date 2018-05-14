@@ -5,6 +5,7 @@ const ResponseModel = require('../models/response.js');
 const SongModel = require('../models/song.js');
 const Clinton_ItemModel = require('../models/clinton_item.js');
 const Clinton_Inventory_ItemModel = require('../models/clinton_inventory_item.js');
+const Clinton_Point_Model = require('../models/clinton_point.js');
 const colors = require('colors');
 
 const multer = require('multer');
@@ -165,6 +166,64 @@ module.exports = function(app) {
       })
     }
   });
+
+  app.post("/add_clinton_points", (req, res) => {
+    const points_to_add = req.body.points_to_add || 1;
+    for (var i = 0; i < points_to_add; i++) {
+      const newClintonPoint = new Clinton_Point_Model({used: false});
+      newClintonPoint.save((err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("saved one clinton point to database");
+        }
+      })
+    }
+    res.redirect('/neal');
+  })
+
+  app.post("/spend_clinton_point", (req, res) => {
+    Clinton_Point_Model.findOneAndUpdate({
+      used: false
+    }, {
+      $set: {
+        used: true
+      }
+    }, {
+      new: true
+    }, function(err, doc) {
+      if (err) {
+        console.log("Something wrong when updating data!");
+        res.send("Couldn't spend point")
+      } else {
+        console.log(doc);
+        res.send("Successfully spent point")
+      }
+    })
+  });
+
+  app.post("/get_clinton_points", (req, res) => {
+    Clinton_Point_Model.find({used: false}).exec((err, docs) => {
+      if (err) {
+        console.log(err);
+        res.send("Database Error getting points");
+      } else {
+        res.json({points: docs.length});
+      }
+    })
+  })
+
+  app.post("/get_clinton_inventory_items", (req, res) => {
+    Clinton_Inventory_ItemModel.find({}).exec((err, docs) => {
+      if (err) {
+        console.log(err);
+        res.send("Database Error getting items");
+      } else {
+        console.log(docs);
+        res.json({items: docs});
+      }
+    })
+  })
 
   app.post("/add_clinton_item_to_inventory", (req, res) => {
     const new_Clinton_Inventory_Item = new Clinton_Inventory_ItemModel(req.body);
