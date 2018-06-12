@@ -48,7 +48,7 @@ io.on('connection', function(socket) {
           console.log(contentToSend)
           io.to("pi-client").emit('chat message', savedInputs[contentToSend]);
         } else {
-          io.to("pi-client").emit('chat message', msg);
+          io.to("pi-client").emit('chat message', msg.data);
         }
       } else {
         io.to(msg.room).emit(msg.type, msg.data)
