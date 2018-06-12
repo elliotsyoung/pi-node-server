@@ -3,7 +3,7 @@ global.__base = __dirname + "/";
 //################################################################
 // Major Components
 //################################################################
-const express = require('express'); // for app server object and other middleware
+const express = require('express'); // Top level object that provides middleware functions and the main server object, called app.
 const app = express(); // set up server on this object and will later pass this to the http to listen on
 const server = require('http').createServer(app); // the actual server that listens on a port on server.listen(). We will need to pass server into socket.io
 const routes = require(global.__base + 'server/config/routes.js');
