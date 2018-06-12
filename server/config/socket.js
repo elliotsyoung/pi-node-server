@@ -6,10 +6,10 @@ var savedInputs = ["this will be the first entry", "this wil be the second entry
 
 io.on('connection', function(socket) {
 
-  io.emit('chat message', "Use the number's to enter prerecorded text")
-  for (var i = 0; i < savedInputs.length; i++) {
-    io.emit('chat message', (i + 1) + " " + savedInputs[i])
-  }
+  // io.emit('chat message', "Use the number's to enter prerecorded text")
+  // for (var i = 0; i < savedInputs.length; i++) {
+  //   io.emit('chat message', (i + 1) + " " + savedInputs[i])
+  // }
 
   console.log(socket.conn.id);
   socket.on('chat message', function(data) {
