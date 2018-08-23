@@ -114,27 +114,13 @@ io.on('connection', function(socket) {
 
   socket.on('to room', function(msg) {
     console.log(msg);
-    if (msg.room) {
-      if (msg.room == "pi-client" && msg.type == "chat message") {
-        var shouldGivePredefinedInput = false;
-        for (var i = 0; i < savedInputs.length; i++) {
-          if (msg.data == "-" + (
-          i + 1)) {
-            shouldGivePredefinedInput = true;
-          }
-        }
-        if (shouldGivePredefinedInput) {
-          const contentToSend = parseInt(msg.data.split("")[1]) - 1;
-          // console.log(contentToSend)
-          io.to("pi-client").emit('chat message', savedInputs[contentToSend]);
-        } else {
-          io.to("pi-client").emit('chat message', msg.data);
-        }
-      } else {
-        io.to(msg.room).emit(msg.type, msg.data)
-      }
-    }
+    io.to(msg.room).emit(msg.type, msg.data)
   });
+  socket.on('robot speak command', function(msg) {
+    console.log(msg);
+    io.to("pi-client").emit("robot speak command", msg);
+  });
+
 
   socket.on('drawing', (data) => socket.broadcast.emit('drawing', data));
   socket.on('changeBrushSize', (data) => socket.broadcast.emit('changeBrushSize', data));
